@@ -5,7 +5,7 @@ set -euo pipefail
 # CONFIG
 # ==========================
 WALLPAPER_DIR="$HOME/Pictures/wallpapers"
-ROFI_CONFIG="$HOME/.config/rofi/config.rasi"
+ROFI_CONFIG="$HOME/.config/rofi/wall.rasi"
 SYMLINK_PATH="$HOME/.config/hypr/current_wallpaper"
 IMAGE_EXTENSIONS=("jpg" "jpeg" "png" "gif" "webp")
 
