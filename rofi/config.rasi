@@ -1,3 +1,9 @@
+/**
+ * zzzyyyuuuuu launcher config
+ * User: max
+ * Copyright: zzzyyyuuuuu
+ */
+
 configuration {
     modi:                       "drun,run";
     font:                       "Iosevka 14";
