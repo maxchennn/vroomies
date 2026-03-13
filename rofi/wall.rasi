@@ -1,3 +1,9 @@
+/**
+ * zzzyyyuuuuu wall selector config
+ * User: max
+ * Copyright: zzzyyyuuuuu
+ */
+
 @import "color.rasi"
 
 configuration {
@@ -26,7 +32,7 @@ window {
 
 mainbox {
     spacing:                     0px;
-    padding:                     25px;
+    padding:                     20px;
     children:                    [ "listview" ];
 }
 
@@ -37,7 +43,7 @@ inputbar {
 listview {
     columns:                     1;
     lines:                       4;
-    spacing:                     15px;    
+    spacing:                     0px;
     cycle:                       true;
     fixed-height:                true;
     scrollbar:                   false;
@@ -46,7 +52,7 @@ listview {
 
 element {
     orientation:                 vertical;
-    padding:                     15px;    
+    padding:                     5px 0px;
     border-radius:               20px;
     background-color:            transparent;
 }
@@ -70,7 +76,7 @@ element selected.active {
 }
 
 element-icon {
-    size:                        185px;
+    size:                        215px;
     horizontal-align:            0.5;
 }
 
