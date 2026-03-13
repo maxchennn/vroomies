@@ -9,11 +9,8 @@
 * {
     border: none;
     border-radius: 0;
-    min-height: 0;
-    margin: 0;
-    padding: 0;
     font-family: 'JetBrainsMono Nerd Font Propo';
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 700;
 }
 
@@ -29,6 +26,23 @@ window#waybar {
     border: 1px solid alpha(@outline, 0.15);
 }
 
+#window {
+    background-color: alpha(@surface, 0.7);
+    color: @primary;
+    padding: 2px 15px;
+    margin: 6px 12px;
+    border-radius: 12px;
+    border: 1px solid alpha(@outline, 0.15);
+}
+
+#right1 {
+    background-color: alpha(@surface, 0.7);
+    padding: 2px 12px;
+    margin: 6px 12px;
+    border-radius: 12px;
+    border: 1px solid alpha(@outline, 0.15);
+}
+
 #workspaces {
     background-color: alpha(@surface_container, 0.5);
     margin: 4px;
@@ -39,7 +53,6 @@ window#waybar {
 #workspaces button {
     color: alpha(@on_surface, 0.4);
     padding: 0 8px;
-    transition: all 0.4s cubic-bezier(.55,-0.04,.3,1.44);
 }
 
 #workspaces button.active {
@@ -49,69 +62,28 @@ window#waybar {
     margin: 4px 2px;
 }
 
-#workspaces button:hover {
-    color: @primary;
-    background: alpha(@primary, 0.1);
-}
-
-#right1, #group-right1 {
-    background-color: alpha(@surface, 0.7);
-    padding: 2px 15px;
-    margin: 6px 12px;
-    border-radius: 12px;
-    border: 1px solid alpha(@outline, 0.15);
-}
-
 #network, #bluetooth, #battery {
     color: @primary;
     padding: 0 8px;
 }
 
 #cpu, #memory, #disk {
+    color: @primary;
     background-color: alpha(@surface_container, 0.6);
     border-radius: 6px;
     padding: 2px 10px;
     margin: 4px 3px;
 }
 
-#cpu    { color: @primary; }
-#memory { color: @secondary; }
-#disk   { color: @tertiary; }
-
-#clock {
+#clock, #mpris {
     color: @on_surface;
-    background-color: alpha(@surface, 0.7);
-    padding: 0 15px;
-    margin: 6px 5px;
-    border-radius: 10px;
-    border: 1px solid alpha(@outline, 0.1);
-}
-
-#mpris {
-    color: @primary;
+    background-color: alpha(@surface_container, 0.6);
     padding: 0 12px;
-    margin: 6px 5px;
-    background-color: alpha(@surface, 0.7);
-    border-radius: 10px;
-    border: 1px solid alpha(@outline, 0.1);
+    margin: 4px 5px;
+    border-radius: 8px;
 }
 
 #custom-expand-iconl, #custom-expand-iconr {
     color: @primary;
-    padding: 0 8px;
-}
-
-@keyframes blink {
-    to { background-color: alpha(@error, 0.5); color: @on_error; }
-}
-
-#battery.critical:not(.charging) {
-    animation: blink 0.8s ease-in-out infinite alternate;
-    border-radius: 4px;
-}
-
-tooltip {
-    background: @surface;
-    border: 1px solid @primary;
-    border-radius: 8px;
+    padding: 0 5px;
 }
