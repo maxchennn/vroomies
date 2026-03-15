@@ -1,7 +1,6 @@
 @import url("colors.css");
 
 * {
-   
     font-family: "JetBrainsMono Nerd Font";
     font-size: 15px;
     font-weight: 800;
@@ -9,9 +8,11 @@
     box-shadow: none;
 }
 
-
 window#waybar {
-    background: transparent;
+    background-color: rgba(15, 15, 15, 0.6);
+    border-bottom: none;
+    margin: 0px;
+    border-radius: 0px;
 }
 
 #custom-launcher,
@@ -21,53 +22,32 @@ window#waybar {
 #network,
 #battery,
 #custom-power {
-    
-    background-color: rgba(15, 15, 15, 0.65);
+    background-color: rgba(255, 255, 255, 0.08); 
     color: @primary;
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 50px;
     padding: 3px 15px;
-    margin: 0 5px;
+    margin: 5px;
 }
 
+#workspaces button {
+    color: @primary;
+    opacity: 0.3;
+    padding: 0 5px;
+    background: transparent;
+}
+
+#workspaces button.active {
+    opacity: 1;
+    color: @primary;
+}
 
 #clock {
-    background-color: rgba(15, 15, 15, 0.65);
-    color: @primary;
     padding-left: 25px;
     padding-right: 25px;
 }
 
-
-#workspaces button {
-    color: rgba(255, 255, 255, 0.2); 
-    padding: 0 5px;
-}
-
-#workspaces button.active {
-    color: @primary;
-}
-
-#workspaces button:hover {
-    color: @secondary;
-}
-
-
-#custom-launcher {
-    font-size: 16px;
-    color: @primary;
-}
-
-#battery.charging {
-    color: #50fa7b; 
-}
-
-#battery.critical {
-    color: #ff5555;
-}
-
-
 #custom-power {
     color: #ff5555;
-    padding-right: 18px;
+    background-color: rgba(255, 85, 85, 0.1);
 }
