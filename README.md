@@ -12,11 +12,24 @@
 
 ---
 
-## 🎬 Showcase
+## 🎬 Main Showcase
 > **Turn on the sound for the full "Aura" experience.**
+
 <p align="center">
-  <video src="gallery/showcase.mp4" width="100%" controls muted autoplay loop>
+  <video src="gallery/showcase.mp4" width="100%" controls autoplay loop muted>
     Your browser does not support the video tag.
   </video>
 </p>
+
+*🎵 Music: Lady Gaga - Aura*
+
+---
+
+## 📽️ Still Experience (Deep Dive)
+> **Each clip highlights a different part of the flow.**
+
+<p align="center">
+  <video src="gallery/desktop_view.mp4" width="49%" autoplay loop muted></video>
+</p>
+
 ---
