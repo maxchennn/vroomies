@@ -1,0 +1,19 @@
+󰘳 SUPER + RETURN     󰁔  Open Terminal
+󰘳 SUPER + D          󰁔  App Launcher (Rofi)
+󰘳 SUPER + F          󰁔  Toggle Floating
+󰘳 SUPER + SHIFT + Q  󰁔  Kill Active Window
+󰘳 SUPER + SHIFT + E  󰁔  Exit Hyprland
+󰘳 SUPER + W          󰁔  Launch Firefox
+󰘳 SUPER + SHIFT + RET 󰁔  File Manager
+󰒲 SUPER + L          󰁔  Lock Screen (Hyprlock)
+󰘳 SUPER + C          󰁔  Notification Center
+󰘳 SUPER + SHIFT + A  󰁔  Wallpaper Menu (Matugen)
+󰘳 SUPER + SHIFT + W  󰁔  Waybar Styles Menu
+󰘳 SUPER + SHIFT + F  󰁔  Center Floating Window
+󰘳 SUPER + SHIFT + V  󰁔  Video Matugen Script
+󰘳 SUPER + Q          󰁔  Wyxn Script
+󰘳 SUPER + Print      󰁔  Screenshot (Area + Swappy)
+󰘳 SUPER + TAB        󰁔  Cycle Next Window
+󰘳 SUPER + S          󰁔  Toggle Special Workspace
+󰘳 SUPER + MOUSE_L    󰁔  Move Window
+󰘳 SUPER + MOUSE_R    󰁔  Resize Window

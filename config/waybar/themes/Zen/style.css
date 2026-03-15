@@ -1,0 +1,75 @@
+@import url("colors.css");
+
+* {
+    /* Font olarak JetBrainsMono Nerd Font kullanıyoruz */
+    font-family: "JetBrainsMono Nerd Font";
+    font-size: 15px;
+    font-weight: 800;
+    border: none;
+    box-shadow: none;
+}
+
+/* Ana bar şeridini tamamen görünmez yapıyoruz */
+window#waybar {
+    background: transparent;
+}
+
+/* Tüm modülleri süzülen "Pill" (Hap) yapısına sokan ana stil */
+#custom-launcher,
+#workspaces,
+#clock,
+#pulseaudio,
+#network,
+#battery,
+#custom-power {
+    /* Matugen renkleriyle uyumlu, arkadaki wallpaper'ı gösteren şeffaf siyah */
+    background-color: rgba(15, 15, 15, 0.65);
+    color: @primary;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50px;
+    padding: 3px 15px;
+    margin: 0 5px;
+}
+
+/* Saat adası - O istemediğin beyazlığı ve parlamayı burada sildik */
+#clock {
+    background-color: rgba(15, 15, 15, 0.65);
+    color: @primary;
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+/* Workspaces - Aktif masaüstünü belirginleştirir */
+#workspaces button {
+    color: rgba(255, 255, 255, 0.2); /* Aktif olmayanlar silik */
+    padding: 0 5px;
+}
+
+#workspaces button.active {
+    color: @primary;
+}
+
+#workspaces button:hover {
+    color: @secondary;
+}
+
+/* Launcher İkonu (En soldaki) */
+#custom-launcher {
+    font-size: 16px;
+    color: @primary;
+}
+
+/* Batarya ve Network renk uyumu */
+#battery.charging {
+    color: #50fa7b; /* Şarj olurken yeşil parlasın */
+}
+
+#battery.critical {
+    color: #ff5555;
+}
+
+/* Güç Butonu */
+#custom-power {
+    color: #ff5555;
+    padding-right: 18px;
+}

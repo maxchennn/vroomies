@@ -1,0 +1,41 @@
+{
+    "layer": "top",
+    "position": "top",
+    "margin-top": 12,
+    "margin-left": 20,
+    "margin-right": 20,
+    "spacing": 10,
+
+    "modules-left": ["custom/launcher", "hyprland/workspaces"],
+    "modules-center": ["clock"],
+    "modules-right": ["pulseaudio", "network", "battery", "custom/power"],
+
+    "custom/launcher": {
+        "format": "󰀻", // Arch değil, daha çok bir 'App Launcher' ikonu
+        "on-click": "rofi -show drun"
+    },
+
+    "hyprland/workspaces": {
+        "format": "{icon}",
+        "format-icons": {
+            "active": "󰮯", // Senin sevdiğin Pac-man tarzı ikon
+            "default": "󰊠"
+        }
+    },
+
+"network": {
+    "interface": "wlp*", // Cihaz adın neyse (wlp2s0 vb.) hepsini kapsar
+    "format-wifi": "  {essid}",
+    "format-ethernet": "󰈀",
+    "format-disconnected": "󰖪", // Bağlı değilse bu ikon çıkar
+    "tooltip-format": "{ifname} via {gwaddr}",
+    "max-length": 25,
+    "on-click": "nm-connection-editor" // Tıklayınca ağ ayarlarını açar
+},
+
+
+    "clock": {
+        "format": "󰥔 {:%H:%M}",
+        "format-alt": "󰃭 {:%d %B %Y}"
+    }
+}
