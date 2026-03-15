@@ -15,8 +15,7 @@
   </video>
 </p>
 
-
-*🎵 Background: Lady Gaga - Venus*
+> *🎵 Background: Lady Gaga - Venus*
 
 ---
 
@@ -26,4 +25,15 @@
 * **Pure Logic:** Every keybinding and config is optimized for speed.
 
 ## 🤝 Credits
-- Special thanks to the [r/hyprland](https://www.reddit.com/r/hyprland/) community for the inspiration.
+Special thanks to the [r/hyprland](https://www.reddit.com/r/hyprland/) community for the inspiration.
+
+## 📈 The Flow Growth
+<p align="center">
+<a href="https://star-history.com/#zzzyyyuuuuu/Pure-Flow&Date">
+ <picture>
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=zzzyyyuuuuu/Pure-Flow&type=Date&theme=dark" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=zzzyyyuuuuu/Pure-Flow&type=Date" />
+   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=zzzyyyuuuuu/Pure-Flow&type=Date" />
+ </picture>
+</a>
+</p>
