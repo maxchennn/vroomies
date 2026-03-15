@@ -24,3 +24,6 @@
 * **Dynamic Flow:** Matugen-powered colors that breathe with your wallpaper.
 * **Crystal UI:** Deep glassmorphism with high-performance blur.
 * **Pure Logic:** Every keybinding and config is optimized for speed.
+
+## 🤝 Credits
+- Special thanks to the [r/hyprland](https://www.reddit.com/r/hyprland/) community for the inspiration.
