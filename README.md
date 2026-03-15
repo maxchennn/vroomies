@@ -11,9 +11,7 @@
 > **Turn on the sound. Let the "Venus" energy take off.**
 
 <p align="center">
-  <video src="gallery/showcase.mp4" width="100%" controls autoplay loop muted>
-    Your browser does not support the video tag.
-  </video>
+  <video src="gallery/desktop_view.mp4" width="49%" autoplay loop muted></video>
 </p>
 
 *🎵 Background: Lady Gaga - Venus*
@@ -27,7 +25,3 @@
 
 ---
 
-## 📽️ Visual Journey
-<p align="center">
-  <video src="gallery/desktop_view.mp4" width="49%" autoplay loop muted></video>
-</p>
