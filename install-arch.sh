@@ -2,38 +2,44 @@
 set -e
 
 CYAN='\033[0;36m'
+BLUE='\033[0;34m'
 GREEN='\033[0;32m'
+GRAY='\033[0;90m'
 NC='\033[0m'
 
+clear
+echo -e "${BLUE}●${NC} ${CYAN}Pure-Flow v1.1.0${NC} ${GRAY}-----------------------------------${NC}"
+echo ""
+
 PACKAGES=(base-devel git hyprland hyprpaper hyprlock swaync rofi-wayland waybar kitty dolphin rust wlogout)
-
-echo -e "${CYAN}[START] Pure-Flow: Starting Arch Linux Installation...${NC}"
-
 total=${#PACKAGES[@]}
 count=0
 
-echo "------------------------------------------------------------"
 for pkg in "${PACKAGES[@]}"; do
     count=$((count + 1))
     percent=$((count * 100 / total))
+    filled=$((percent / 5))
+    empty=$((20 - filled))
     
-    printf "\rInstalling: %-30s %3d%%" "$pkg" "$percent"
-    echo -e "\nPackage installation details (Downloading...)"
+    # Progress Bar oluşturma
+    bar=$(printf "%${filled}s" | tr ' ' '━')
+    spacer=$(printf "%${empty}s" | tr ' ' ' ')
+
+    printf "\r${BLUE}  Deploying ${NC}%-15s ${BLUE}[${bar}${GRAY}${spacer}${BLUE}]${NC} %3d%%" "$pkg" "$percent"
     
     sudo pacman -S --needed --noconfirm "$pkg" > /dev/null 2>&1
-    
-    printf "\033[1A\033[K\033[1A\033[K" 
 done
-echo -e "${GREEN}[OK] System packages installed.${NC}"
-echo "------------------------------------------------------------"
+
+echo -e "\n\n${GREEN}  ✔ Core components successfully deployed.${NC}"
 
 if ! command -v yay &> /dev/null; then
-    git clone https://aur.archlinux.org/yay.git /tmp/yay && cd /tmp/yay && makepkg -si --noconfirm && cd -
+    echo -e "${BLUE}  ●${NC} Installing yay (AUR Helper)..."
+    git clone https://aur.archlinux.org/yay.git /tmp/yay && cd /tmp/yay && makepkg -si --noconfirm && cd - > /dev/null
 fi
 yay -S --noconfirm matugen > /dev/null 2>&1
 
 if [ -d "fonts" ]; then
-    echo -e "${CYAN}[INFO] Installing local fonts...${NC}"
+    echo -e "${BLUE}  ●${NC} Synchronizing fonts..."
     mkdir -p ~/.local/share/fonts
     cp -r fonts/*.{ttf,otf} ~/.local/share/fonts/ 2>/dev/null || cp -r fonts/* ~/.local/share/fonts/
     fc-cache -fv > /dev/null 2>&1
@@ -43,7 +49,6 @@ mkdir -p ~/.config
 [ -d ~/.config/hypr ] && mv ~/.config/hypr ~/.config/hypr_old_$(date +%Y%m%d_%H%M)
 cp -r config/* ~/.config/
 chmod +x ~/.config/hypr/scripts/* 2>/dev/null || true
-
 sed -i "s|/home/$USER/|$HOME/|g" ~/.config/hypr/*.conf 2>/dev/null || true
 
-echo -e "${GREEN}[DONE] Pure-Flow installation completed successfully!${NC}"
+echo -e "\n${CYAN}  Finished.${NC} ${GRAY}Pure-Flow is ready to use.${NC}"
