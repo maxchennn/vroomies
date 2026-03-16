@@ -10,7 +10,7 @@ echo -e "${CYAN}🌌 Pure-Flow: Starting Fedora Installation...${NC}"
 sudo dnf copr enable -y solopasha/hyprland
 sudo dnf copr enable -y purian23/matugen
 
-sudo dnf install -y hyprland hyprpaper swaync matugen rofi waybar kitty dolphin
+sudo dnf install -y hyprland hyprpaper swaync matugen rofi waybar kitty dolphin google-noto-cjk-fonts jetbrains-mono-fonts-all
 
 mkdir -p ~/.config
 
