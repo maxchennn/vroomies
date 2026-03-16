@@ -150,7 +150,7 @@
 
   "custom/power": {
     "format": "󰐥",
-    "on-click": "wlogout",
+    "on-click": "wlogout -b 5",
     "tooltip": false
   }
 }
