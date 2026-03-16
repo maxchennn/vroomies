@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bash/bin/bash
 set -e
 
 CYAN='\033[0;36m'
@@ -35,9 +35,9 @@ done
 echo -e "\n\n${GREEN}  ✔ Core components successfully deployed.${NC}"
 
 if [ -d "fonts" ]; then
-    echo -e "${BLUE}  ●${NC} Synchronizing fonts..."
-    mkdir -p ~/.local/share/fonts
-    cp -r fonts/*.{ttf,otf} ~/.local/share/fonts/ 2>/dev/null || cp -r fonts/* ~/.local/share/fonts/
+    echo -e "${BLUE}  ●${NC} Synchronizing fonts from subdirectories..."
+    mkdir -p ~/.local/share/fonts/pure-fonts
+    find fonts -type f \( -name "*.ttf" -o -name "*.otf" \) -exec cp {} ~/.local/share/fonts/pure-fonts/ \;
     fc-cache -fv > /dev/null 2>&1
 fi
 
