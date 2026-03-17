@@ -10,7 +10,7 @@
 
   "modules-left": ["hyprland/window"],
   "modules-center": ["group/center3-expander", "hyprland/workspaces", "group/center2-expander"],
-  "modules-right": ["custom/separator#dot", "group/right1"],
+  "modules-right": ["custom/separator#dot", "group/right1", "custom/notification", "custom/power"],
 
   "hyprland/window": {
     "format": "{}",
@@ -23,7 +23,7 @@
       "org.gnome.Nautilus": "󰉋  Files",
       "thunar": "󰉋  Files",
       "code-oss": "󰨞  VS Code",
-      "discord": "󰙯  Discord",
+      "discord": "󰙯  Discord"
     }
   },
 
@@ -85,5 +85,32 @@
 
   "cpu": { "format": "󰻠 {usage}%" },
   "memory": { "format": "󰍛 {percentage}%" },
-  "disk": { "format": "󰋊 {percentage_used}%" }
+  "disk": { "format": "󰋊 {percentage_used}%" },
+
+  "custom/notification": {
+    "tooltip": false,
+    "format": "{icon}",
+    "format-icons": {
+      "notification": "󱅫",
+      "none": "󰂚",
+      "dnd-notification": "󱅫",
+      "dnd-none": "󰂛",
+      "inhibited-notification": "󱅫",
+      "inhibited-none": "󰂚",
+      "dnd-inhibited-notification": "󱅫",
+      "dnd-inhibited-none": "󰂛"
+    },
+    "return-type": "json",
+    "exec-if": "which swaync-client",
+    "exec": "swaync-client -swb",
+    "on-click": "swaync-client -t -sw",
+    "on-click-right": "swaync-client -d -sw",
+    "escape": true
+  },
+
+  "custom/power": {
+    "format": "󰐥",
+    "on-click": "wlogout -b 5 ",
+    "tooltip": false
+  }
 }
