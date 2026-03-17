@@ -1,10 +1,5 @@
-/**
- * zzzyyyuuuuu waybar style
- * User: max
- * Copyright: zzzyyyuuuuu
- */
-
 @import url("colors.css");
+
 * {
     font-family: JetBrainsMono Nerd Font;
     font-size: 13px;
@@ -15,7 +10,7 @@
 
 window#waybar {
     background-color: @background;
-    border-radius: 6px;   /* az yuvarlak */
+    border-radius: 6px;
 }
 
 /* WORKSPACES */
@@ -33,11 +28,19 @@ window#waybar {
 #network,
 #pulseaudio,
 #battery,
-#clock {
+#clock,
+#custom-notification,
+#custom-power {
     color: @foreground;
     font-weight: 700;
     font-size: 14px;
-    letter-spacing: 1.5px;
-    font-feature-settings: "tnum"; /* monospace rakam hissi */
     padding: 6px 0;
+}
+
+#custom-notification {
+    color: #f9e2af;
+}
+
+#custom-power {
+    color: #ff5555;
 }
