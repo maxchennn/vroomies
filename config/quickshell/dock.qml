@@ -14,28 +14,36 @@ PanelWindow {
         bottom: true
     }
 
-    margins.bottom: Math.round(Screen.height * 0.008)
+    margins.bottom: 0 
+    
     implicitWidth: dockContent.width + Math.round(Screen.width * 0.02)
     implicitHeight: Math.round(Screen.height * 0.055)
     color: "transparent"
-    exclusiveZone: Math.round(Screen.height * 0.065)
+    exclusiveZone: Math.round(Screen.height * 0.055)
 
     Rectangle {
         id: mainDockBody
-        anchors.centerIn: parent
+        anchors.bottom: parent.bottom 
+        anchors.horizontalCenter: parent.horizontalCenter
+        
         width: dockContent.width + Math.round(Screen.width * 0.02)
         height: Math.round(Screen.height * 0.051)
-        radius: 16
+        
         color: "#000000"
-        border.width: 0
+        
+        topLeftRadius: 20
+        topRightRadius: 20
+        bottomLeftRadius: 0
+        bottomRightRadius: 0
 
         Rectangle {
             anchors.top: parent.top
             anchors.left: parent.left
             anchors.right: parent.right
             height: parent.height / 2
-            radius: parent.radius
-            color: "#0cffffff"
+            topLeftRadius: parent.topLeftRadius
+            topRightRadius: parent.topRightRadius
+            color: "#000000"
         }
 
         Row {
@@ -49,7 +57,7 @@ PanelWindow {
                     "󰆍:foot",
                     "󰉋:thunar",
                     "󰓓:steam",
-                    "󰙯:discord"
+                    "󰙯:Discord"
                 ]
                 for (var i = 0; i < apps.length; i++) {
                     var parts = apps[i].split(":")
@@ -74,7 +82,7 @@ PanelWindow {
                 anchors.centerIn: parent
                 text: icon
                 font.pixelSize: Math.round(Screen.height * 0.026)
-                color: "#ffffff"
+                color: "#FFFFFF"
                 font.family: "Symbols Nerd Font"
                 opacity: mouse.containsMouse ? 1.0 : 0.75
 
