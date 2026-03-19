@@ -26,7 +26,7 @@ require('neoscroll').setup({
     cursor_scroll_step = 1
 })
 
-vim.cmd("source ~/.config/nvim/colors/colors.vim")
+pcall(vim.cmd, "source ~/.config/nvim/colors/colors.vim")
 
 vim.opt.termguicolors = true
 vim.opt.number = true
@@ -35,6 +35,7 @@ vim.opt.cursorline = true
 vim.opt.mouse = "a"
 vim.opt.clipboard = "unnamedplus"
 vim.opt.guicursor = "a:hide"
+vim.opt.laststatus = 0
 
 vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
 vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
@@ -85,3 +86,4 @@ vim.keymap.set("n", "g", ":NvimTreeFocus<CR>H", { silent = true })
 vim.keymap.set("n", "ff", ":NvimTreeFocus<CR>f", { silent = true })
 vim.keymap.set("n", "ss", ":Telescope live_grep<CR>", { silent = true })
 vim.keymap.set("n", "A", ":NvimTreeFocus<CR>a", { silent = true })
+vim.keymap.set("n", "q", ":q<CR>", { silent = true })
