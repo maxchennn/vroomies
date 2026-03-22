@@ -14,14 +14,14 @@ PanelWindow {
     exclusionMode: ExclusionMode.Ignore
     anchors { top: true; bottom: true; right: true }
 
-    property bool showDashboard: true
+    property bool showDashboard: false
 
     margins {
         top: 70
         bottom: 10
-        right: showDashboard ? 6 : -260
+        right: showDashboard ? 6 : -300
     }
-    implicitWidth: 260
+    implicitWidth: 300
     color: "transparent"
     focusable: true
     WlrLayershell.layer: WlrLayer.Top
@@ -52,7 +52,11 @@ PanelWindow {
     property int cpuVal:    0
     property int ramVal:    0
     property int diskVal:   0
-    property var ppFiles:   []
+    property string netName: "..."
+    property bool netUp:     false
+    property string btName:  "..."
+    property bool btOn:      false
+    property var ppFiles:    []
     property bool ppPickerOpen: false
     property string ppActualPath: ""
 
@@ -92,6 +96,8 @@ PanelWindow {
         batStatusProc.running = true
         volProc.running = true
         brightProc.running = true
+        netProc.running = true
+        btProc.running = true
     }
 
     Process {
@@ -132,7 +138,10 @@ PanelWindow {
         Keys.onPressed: function(event) {
             if (event.key === Qt.Key_Escape) {
                 if (dashboard.ppPickerOpen) dashboard.ppPickerOpen = false
-                else dashboardState.show = false
+                else {
+                    dashboardState.show = false
+                    dashboard.showDashboard = false
+                }
                 event.accepted = true
             } else if (event.key === Qt.Key_M) {
                 dashboard.ppPickerOpen = !dashboard.ppPickerOpen
@@ -332,7 +341,7 @@ PanelWindow {
 
                 Rectangle {
                     Layout.fillWidth: true
-                    height: 60
+                    Layout.preferredHeight: 60
                     color: dashboard.surface
                     radius: 12
                     Behavior on color { ColorAnimation { duration: 300 } }
@@ -373,9 +382,355 @@ PanelWindow {
                     }
                 }
 
+                RowLayout {
+                    Layout.fillWidth: true
+                    spacing: 8
+
+                    Rectangle {
+                        id: wifiCard
+                        Layout.fillWidth: true
+                        Layout.preferredHeight: wifiOpen ? 200 : 56
+                        color: dashboard.surface
+                        radius: 12
+                        clip: true
+                        Behavior on Layout.preferredHeight { NumberAnimation { duration: 200; easing.type: Easing.OutCubic } }
+                        Behavior on color { ColorAnimation { duration: 300 } }
+
+                        property bool wifiOpen: false
+                        property var wifiNetworks: []
+
+                        ColumnLayout {
+                            anchors.fill: parent
+                            anchors.margins: 10
+                            spacing: 6
+
+                            RowLayout {
+                                Layout.fillWidth: true
+                                spacing: 8
+
+                                Text {
+                                    text: dashboard.netUp ? "󰤨" : "󰤭"
+                                    color: dashboard.netUp ? dashboard.col2 : dashboard.muted
+                                    font.pixelSize: 18
+                                    font.family: dashboard.fontFam
+                                    Behavior on color { ColorAnimation { duration: 300 } }
+                                }
+                                ColumnLayout {
+                                    Layout.fillWidth: true
+                                    spacing: 2
+                                    Text {
+                                        text: dashboard.netUp ? dashboard.netName : "Offline"
+                                        color: dashboard.fg
+                                        font.pixelSize: 11; font.bold: true
+                                        font.family: dashboard.fontFam
+                                        elide: Text.ElideRight
+                                        Layout.fillWidth: true
+                                        Behavior on color { ColorAnimation { duration: 300 } }
+                                    }
+                                    Text {
+                                        text: "Network"
+                                        color: dashboard.muted
+                                        font.pixelSize: 9
+                                        font.family: dashboard.fontFam
+                                        Behavior on color { ColorAnimation { duration: 300 } }
+                                    }
+                                }
+                                MouseArea {
+                                    anchors.fill: parent
+                                    cursorShape: Qt.PointingHandCursor
+                                    onClicked: {
+                                        wifiCard.wifiOpen = !wifiCard.wifiOpen
+                                        if (wifiCard.wifiOpen) {
+                                            wifiCard.wifiNetworks = []
+                                            wifiScanProc.running = true
+                                        }
+                                    }
+                                }
+                            }
+
+                            Flickable {
+                                Layout.fillWidth: true
+                                Layout.fillHeight: true
+                                contentWidth: width
+                                contentHeight: wifiCol.implicitHeight
+                                clip: true
+                                visible: wifiCard.wifiOpen
+
+                                Column {
+                                    id: wifiCol
+                                    width: parent.width
+                                    spacing: 4
+
+                                    Text {
+                                        text: "Available Networks"
+                                        color: dashboard.accent
+                                        font.pixelSize: 10; font.bold: true
+                                        font.family: dashboard.fontFam
+                                        Behavior on color { ColorAnimation { duration: 300 } }
+                                    }
+
+                                    Repeater {
+                                        model: wifiCard.wifiNetworks
+                                        Rectangle {
+                                            width: wifiCol.width
+                                            height: 38
+                                            radius: 8
+                                            color: wifiMa.containsMouse ? Qt.rgba(1,1,1,0.06) : "transparent"
+
+                                            RowLayout {
+                                                anchors.fill: parent
+                                                anchors.leftMargin: 4
+                                                anchors.rightMargin: 4
+                                                spacing: 8
+
+                                                Text {
+                                                    text: "󰤨"
+                                                    color: modelData.connected ? dashboard.accent : dashboard.muted
+                                                    font.pixelSize: 14
+                                                    font.family: dashboard.fontFam
+                                                    Behavior on color { ColorAnimation { duration: 300 } }
+                                                }
+                                                ColumnLayout {
+                                                    Layout.fillWidth: true
+                                                    spacing: 1
+                                                    Text {
+                                                        text: modelData.ssid
+                                                        color: modelData.connected ? dashboard.accent : dashboard.fg
+                                                        font.pixelSize: 11
+                                                        font.bold: modelData.connected
+                                                        font.family: dashboard.fontFam
+                                                        elide: Text.ElideRight
+                                                        Layout.fillWidth: true
+                                                        Behavior on color { ColorAnimation { duration: 300 } }
+                                                    }
+                                                    Text {
+                                                        text: modelData.security
+                                                        color: dashboard.muted
+                                                        font.pixelSize: 9
+                                                        font.family: dashboard.fontFam
+                                                    }
+                                                }
+                                                Text {
+                                                    visible: modelData.connected
+                                                    text: "Connected"
+                                                    color: dashboard.accent
+                                                    font.pixelSize: 9
+                                                    font.family: dashboard.fontFam
+                                                    Behavior on color { ColorAnimation { duration: 300 } }
+                                                }
+                                            }
+
+                                            MouseArea {
+                                                id: wifiMa
+                                                anchors.fill: parent
+                                                hoverEnabled: true
+                                                cursorShape: Qt.PointingHandCursor
+                                                onClicked: {
+                                                    wifiConnectProc.command = ["bash", "-c", "nmcli dev wifi connect '" + modelData.ssid + "'"]
+                                                    wifiConnectProc.running = true
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        Process {
+                            id: wifiScanProc
+                            command: ["bash", "-c", "nmcli -t -f active,ssid,security dev wifi list 2>/dev/null"]
+                            stdout: SplitParser {
+                                onRead: data => {
+                                    var line = data.trim()
+                                    if (line.length === 0) return
+                                    var parts = line.split(":")
+                                    if (parts.length < 2) return
+                                    var connected = parts[0] === "yes"
+                                    var ssid = parts[1]
+                                    var security = parts[2] || "Open"
+                                    if (ssid.length === 0) return
+                                    var arr = wifiCard.wifiNetworks.slice()
+                                    arr.push({ ssid: ssid, connected: connected, security: security })
+                                    wifiCard.wifiNetworks = arr
+                                }
+                            }
+                        }
+                        Process { id: wifiConnectProc; onExited: netProc.running = true }
+                    }
+
+                    Rectangle {
+                        id: btCard
+                        Layout.fillWidth: true
+                        Layout.preferredHeight: btOpen ? 200 : 56
+                        color: dashboard.surface
+                        radius: 12
+                        clip: true
+                        Behavior on Layout.preferredHeight { NumberAnimation { duration: 200; easing.type: Easing.OutCubic } }
+                        Behavior on color { ColorAnimation { duration: 300 } }
+
+                        property bool btOpen: false
+                        property var btDevices: []
+
+                        ColumnLayout {
+                            anchors.fill: parent
+                            anchors.margins: 10
+                            spacing: 6
+
+                            RowLayout {
+                                Layout.fillWidth: true
+                                spacing: 8
+
+                                Text {
+                                    text: dashboard.btOn ? "󰂯" : "󰂲"
+                                    color: dashboard.btOn ? dashboard.col3 : dashboard.muted
+                                    font.pixelSize: 18
+                                    font.family: dashboard.fontFam
+                                    Behavior on color { ColorAnimation { duration: 300 } }
+                                }
+                                ColumnLayout {
+                                    Layout.fillWidth: true
+                                    spacing: 2
+                                    Text {
+                                        text: dashboard.btOn ? dashboard.btName : "Off"
+                                        color: dashboard.fg
+                                        font.pixelSize: 11; font.bold: true
+                                        font.family: dashboard.fontFam
+                                        elide: Text.ElideRight
+                                        Layout.fillWidth: true
+                                        Behavior on color { ColorAnimation { duration: 300 } }
+                                    }
+                                    Text {
+                                        text: "Bluetooth"
+                                        color: dashboard.muted
+                                        font.pixelSize: 9
+                                        font.family: dashboard.fontFam
+                                        Behavior on color { ColorAnimation { duration: 300 } }
+                                    }
+                                }
+                                MouseArea {
+                                    anchors.fill: parent
+                                    cursorShape: Qt.PointingHandCursor
+                                    onClicked: {
+                                        btCard.btOpen = !btCard.btOpen
+                                        if (btCard.btOpen) {
+                                            btCard.btDevices = []
+                                            btScanProc.running = true
+                                        }
+                                        if (!dashboard.btOn) {
+                                            btToggleProc.running = true
+                                        }
+                                    }
+                                }
+                            }
+
+                            Flickable {
+                                Layout.fillWidth: true
+                                Layout.fillHeight: true
+                                contentWidth: width
+                                contentHeight: btCol.implicitHeight
+                                clip: true
+                                visible: btCard.btOpen
+
+                                Column {
+                                    id: btCol
+                                    width: parent.width
+                                    spacing: 4
+
+                                    Text {
+                                        text: "Devices"
+                                        color: dashboard.accent
+                                        font.pixelSize: 10; font.bold: true
+                                        font.family: dashboard.fontFam
+                                        Behavior on color { ColorAnimation { duration: 300 } }
+                                    }
+
+                                    Repeater {
+                                        model: btCard.btDevices
+                                        Rectangle {
+                                            width: btCol.width
+                                            height: 38
+                                            radius: 8
+                                            color: btDevMa.containsMouse ? Qt.rgba(1,1,1,0.06) : "transparent"
+
+                                            RowLayout {
+                                                anchors.fill: parent
+                                                anchors.leftMargin: 4
+                                                anchors.rightMargin: 4
+                                                spacing: 8
+
+                                                Text {
+                                                    text: "󰂯"
+                                                    color: modelData.connected ? dashboard.col3 : dashboard.muted
+                                                    font.pixelSize: 14
+                                                    font.family: dashboard.fontFam
+                                                    Behavior on color { ColorAnimation { duration: 300 } }
+                                                }
+                                                Text {
+                                                    text: modelData.name
+                                                    color: modelData.connected ? dashboard.col3 : dashboard.fg
+                                                    font.pixelSize: 11
+                                                    font.bold: modelData.connected
+                                                    font.family: dashboard.fontFam
+                                                    elide: Text.ElideRight
+                                                    Layout.fillWidth: true
+                                                    Behavior on color { ColorAnimation { duration: 300 } }
+                                                }
+                                                Text {
+                                                    visible: modelData.connected
+                                                    text: "Connected"
+                                                    color: dashboard.col3
+                                                    font.pixelSize: 9
+                                                    font.family: dashboard.fontFam
+                                                    Behavior on color { ColorAnimation { duration: 300 } }
+                                                }
+                                            }
+
+                                            MouseArea {
+                                                id: btDevMa
+                                                anchors.fill: parent
+                                                hoverEnabled: true
+                                                cursorShape: Qt.PointingHandCursor
+                                                onClicked: {
+                                                    var cmd = modelData.connected
+                                                        ? "bluetoothctl disconnect " + modelData.mac
+                                                        : "bluetoothctl connect " + modelData.mac
+                                                    btConnectProc.command = ["bash", "-c", cmd]
+                                                    btConnectProc.running = true
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        Process {
+                            id: btScanProc
+                            command: ["bash", "-c", "bluetoothctl devices | while read _ mac name; do connected=$(bluetoothctl info $mac | grep 'Connected: yes'); echo \"$mac|$name|$([ -n \\\"$connected\\\" ] && echo yes || echo no)\"; done"]
+                            stdout: SplitParser {
+                                onRead: data => {
+                                    var line = data.trim()
+                                    if (line.length === 0) return
+                                    var parts = line.split("|")
+                                    if (parts.length < 3) return
+                                    var arr = btCard.btDevices.slice()
+                                    arr.push({ mac: parts[0], name: parts[1], connected: parts[2] === "yes" })
+                                    btCard.btDevices = arr
+                                }
+                            }
+                        }
+                        Process { id: btConnectProc; onExited: btProc.running = true }
+                        Process {
+                            id: btToggleProc
+                            command: ["bash", "-c", dashboard.btOn ? "bluetoothctl power off" : "bluetoothctl power on"]
+                            onExited: btProc.running = true
+                        }
+                    }
+                }
+
                 Rectangle {
                     Layout.fillWidth: true
-                    height: 44
+                    Layout.preferredHeight: 44
                     color: dashboard.surface
                     radius: 12
                     Behavior on color { ColorAnimation { duration: 300 } }
@@ -407,7 +762,7 @@ PanelWindow {
 
                 Rectangle {
                     Layout.fillWidth: true
-                    height: 110
+                    Layout.preferredHeight: 110
                     color: dashboard.surface
                     radius: 12
                     Behavior on color { ColorAnimation { duration: 300 } }
@@ -490,7 +845,7 @@ PanelWindow {
 
                 Rectangle {
                     Layout.fillWidth: true
-                    height: 90
+                    Layout.preferredHeight: 90
                     color: dashboard.surface
                     radius: 12
                     Behavior on color { ColorAnimation { duration: 300 } }
@@ -764,9 +1119,44 @@ PanelWindow {
             if (!cpuProc.running)       cpuProc.running = true
             if (!ramProc.running)       ramProc.running = true
             if (!diskProc.running)      diskProc.running = true
+            if (!netProc.running)       netProc.running = true
+            if (!btProc.running)        btProc.running = true
         }
     }
 
+    Process {
+        id: netProc
+        command: ["bash", "-c", "nmcli -t -f active,ssid dev wifi 2>/dev/null | grep '^yes' | cut -d: -f2 || nmcli -t -f active,connection dev | grep '^yes' | cut -d: -f2 | head -1"]
+        stdout: SplitParser {
+            onRead: data => {
+                var n = data.trim()
+                if (n.length > 0) { dashboard.netName = n; dashboard.netUp = true }
+                else { dashboard.netName = "Offline"; dashboard.netUp = false }
+            }
+        }
+    }
+    Process {
+        id: btProc
+        command: ["bash", "-c", "bluetoothctl show | grep 'Powered:' | awk '{print $2}'"]
+        stdout: SplitParser {
+            onRead: data => {
+                var s = data.trim()
+                dashboard.btOn = (s === "yes")
+                if (dashboard.btOn) btNameProc.running = true
+                else dashboard.btName = "Off"
+            }
+        }
+    }
+    Process {
+        id: btNameProc
+        command: ["bash", "-c", "bluetoothctl devices Connected | head -1 | cut -d' ' -f3-"]
+        stdout: SplitParser {
+            onRead: data => {
+                var n = data.trim()
+                dashboard.btName = n.length > 0 ? n : "On"
+            }
+        }
+    }
     Process {
         id: cpuProc
         command: ["bash", "-c", "top -bn1 | grep 'Cpu(s)' | awk '{print int($2 + $4)}'"]
