@@ -29,10 +29,15 @@
 - Editor: **[Neovim](https://github.com/neovim/neovim)**
 - File Manager: **[yazi](https://github.com/sxyazi/yazi)**
 
+# Gallery 
+![](gallery/wallpaper-switcher.png)
+![](gallery/nvim.png)
+![](gallery/launcher.png)
+
 ## 🤝 Credits
 Special thanks to the [r/hyprland](https://www.reddit.com/r/hyprland/) community for the inspiration.
-Special thanks to the [r/Quickshell](https://www.reddit.com/r/QuickShell/) community for the inspiration.
 
+Special thanks to the [r/Quickshell](https://www.reddit.com/r/QuickShell/) community for the inspiration.
 
 ## History
 <a href="https://www.star-history.com/?repos=zzzyyyuuuuu%2Fvroomies&type=date&legend=top-left">
