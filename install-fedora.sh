@@ -32,12 +32,11 @@ git clone --depth 1 https://github.com/maxchennn/vroomies.git
 
 cd vroomies 
 
-cp -rf config/* ~/.config/
-cp -rf fonts/* ~/.local/share/fonts/
-fc-cache -f
+cp  config/* ~/.config/
+cp fonts/* ~/.local/share/fonts/
+fc-cache -fv
 
 cd ~
-rm -rf vroomies
 
 echo "------------------------------------------"
 echo "Are you ready for the Alice Era? (y/n)"
