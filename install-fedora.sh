@@ -4,7 +4,7 @@ echo "Updating system... Please wait, your PC is getting smarter."
 sudo dnf update -y 
 echo "Update done! Your CPU just finished its morning coffee."
 
-echo "Hacking into the Matrix... Just Kidding. enabled Copr repos."
+echo "Hacking into the Matrix... Just Kidding. Enabled Copr repos."
 sudo dnf copr enable errornointernet/quickshell -y
 sudo dnf copr enable solopasha/hyprland -y 
 sudo dnf copr enable purian23/matugen -y 
@@ -20,14 +20,17 @@ for pkg in git fastfetch quickshell hyprland matugen; do
     fi
 done
 
-echo "Vroom vroom! Cloning and setting your vroomies ..."
+echo "Setting up Alice..."
+mkdir -p ~/Pictures
+cd ~/Pictures
+git clone --depth 1 https://github.com/maxchennn/Alice.git
+
+
+echo "Vroom vroom! Cloning and setting your vroomies..."
 cd ~
-rm -rf vroomies 
 git clone --depth 1 https://github.com/maxchennn/vroomies.git 
 
 cd vroomies 
-mkdir -p ~/.config
-mkdir -p ~/.local/share/fonts
 
 cp -rf config/* ~/.config/
 cp -rf fonts/* ~/.local/share/fonts/
@@ -47,4 +50,3 @@ else
 fi
 
 echo "Done! Your configs are now in ~/.config"
-
