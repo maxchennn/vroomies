@@ -28,3 +28,7 @@ post_hook = 'pkill -USR1 cava'
 input_path = '~/.config/matugen/templates/nvim'
 output_path = '~/.config/nvim/colors/colors.vim'
 post_hook = 'pkill -SIGUSR1 nvim'
+
+[templates.wlogout]
+input_path = '~/.config/matugen/templates/wlogout'
+output_path = '~/.config/wlogout/colors.css'
