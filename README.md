@@ -1,6 +1,5 @@
 # vroomies 💧
 ![](gallery/Hero.png)
-![](gallery/spotifyandcava.png)
 
 ## Keybinds
 
@@ -31,7 +30,6 @@
 
 # Gallery 
 ![](gallery/wallpaper-switcher.png)
-![](gallery/nvim.png)
 ![](gallery/launcher.png)
 
 ## 🤝 Credits
