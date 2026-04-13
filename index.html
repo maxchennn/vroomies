@@ -3,99 +3,153 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>vroomies 💧</title>
+<title>vroomies 🌊</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  *, *::before, *::after { 
+    box-sizing: border-box; 
+    margin: 0; 
+    padding: 0; 
+  }
 
   :root {
-    --bg: #11111b;
-    --surface: #181825;
-    --surface2: #1e1e2e;
-    --overlay: #313244;
-    --text: #cdd6f4;
-    --subtext: #a6adc8;
-    --muted: #6c7086;
-    --blue: #89b4fa;
-    --mauve: #cba6f7;
-    --teal: #94e2d5;
-    --green: #a6e3a1;
-    --peach: #fab387;
-    --red: #f38ba8;
-    --yellow: #f9e2af;
+    --bg-primary: #0a0a1a;
+    --bg-gradient: linear-gradient(135deg, #0a0a1a 0%, #1a0a2e 50%, #2a0a4e 100%);
+    --glass: rgba(255,255,255,0.05);
+    --glass-border: rgba(255,255,255,0.1);
+    --neon-cyan: #00f5ff;
+    --neon-purple: #aa00ff;
+    --neon-pink: #ff00ff;
+    --text-main: #e0e7ff;
+    --text-secondary: #a0b2ff;
+    --text-muted: #6474ff;
+    --accent-glow: rgba(0, 245, 255, 0.5);
   }
+
+  * { scrollbar-width: thin; scrollbar-color: var(--neon-cyan) transparent; }
+  ::-webkit-scrollbar { width: 8px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--neon-cyan); border-radius: 4px; }
 
   html { scroll-behavior: smooth; }
 
   body {
-    font-family: 'Inter', sans-serif;
-    background: var(--bg);
-    color: var(--text);
+    font-family: 'Space Grotesk', sans-serif;
+    background: var(--bg-gradient);
+    color: var(--text-main);
     min-height: 100vh;
     overflow-x: hidden;
+    position: relative;
   }
 
-  /* KEYFRAMES */
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+  /* PARTICLE BACKGROUND */
+  .particles {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none;
+    z-index: 1;
   }
 
-  @keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+  .particle {
+    position: absolute;
+    background: var(--neon-cyan);
+    border-radius: 50%;
+    animation: float 20s infinite linear;
   }
 
-  @keyframes scaleIn {
-    from { opacity: 0; transform: scale(0.9); }
-    to { opacity: 1; transform: scale(1); }
+  @keyframes float {
+    0% { transform: translateY(100vh) scale(0); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { transform: translateY(-100px) scale(1); opacity: 0; }
   }
 
-  @keyframes slideIn {
-    from { transform: translateX(20px); opacity: 0; }
-    to { transform: translateX(0); opacity: 1; }
+  /* NEON GLOW ANIMATIONS */
+  @keyframes neonPulse {
+    0%, 100% { text-shadow: 0 0 5px var(--neon-cyan), 0 0 10px var(--neon-cyan), 0 0 20px var(--neon-cyan); }
+    50% { text-shadow: 0 0 20px var(--neon-purple), 0 0 30px var(--neon-purple), 0 0 40px var(--neon-purple); }
   }
 
-  /* NAV */
+  @keyframes glitch {
+    0% { transform: translate(0); }
+    20% { transform: translate(-2px, 2px); }
+    40% { transform: translate(-2px, -2px); }
+    60% { transform: translate(2px, 2px); }
+    80% { transform: translate(2px, -2px); }
+    100% { transform: translate(0); }
+  }
+
+  @keyframes scanline {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(100%); }
+  }
+
+  @keyframes matrixRain {
+    0% { background-position: 0% 100%; }
+    100% { background-position: 0% -100%; }
+  }
+
+  /* NAV - GLASSMORPHISM */
   nav {
     position: fixed;
     top: 0; left: 0; right: 0;
-    z-index: 100;
+    z-index: 1000;
+    backdrop-filter: blur(20px);
+    background: var(--glass);
+    border-bottom: 1px solid var(--glass-border);
+    padding: 1rem 3rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 1rem 2.5rem;
-    background: rgba(17,17,27,0.7);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(255,255,255,0.05);
-    animation: fadeIn 0.5s ease-out; /* Nav animasyonu */
   }
 
-  .nav-logo {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 1rem;
-    font-weight: 500;
-    color: var(--blue);
-    letter-spacing: 0.05em;
+  .logo {
+    font-family: 'Orbitron', monospace;
+    font-size: 1.5rem;
+    font-weight: 900;
+    background: linear-gradient(45deg, var(--neon-cyan), var(--neon-purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: neonPulse 2s ease-in-out infinite;
   }
 
   .nav-links {
     display: flex;
-    gap: 2rem;
+    gap: 2.5rem;
     list-style: none;
   }
 
   .nav-links a {
-    color: var(--subtext);
+    color: var(--text-secondary);
     text-decoration: none;
-    font-size: 0.85rem;
-    transition: color 0.3s ease;
+    font-weight: 500;
+    position: relative;
+    transition: all 0.3s ease;
   }
 
-  .nav-links a:hover { color: var(--text); }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--neon-cyan), var(--neon-pink));
+    transition: width 0.3s ease;
+  }
 
-  /* HERO */
+  .nav-links a:hover::after {
+    width: 100%;
+  }
+
+  .nav-links a:hover {
+    color: var(--neon-cyan);
+    text-shadow: 0 0 10px var(--neon-cyan);
+  }
+
+  /* HERO SECTION */
   .hero {
     min-height: 100vh;
     display: flex;
@@ -105,506 +159,376 @@
     text-align: center;
     padding: 2rem;
     position: relative;
-    overflow: hidden;
-  }
-
-  .hero::before {
-    content: '';
-    position: absolute;
-    width: 600px; height: 600px;
-    background: radial-gradient(circle, rgba(137,180,250,0.06) 0%, transparent 70%);
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-    animation: fadeIn 1s ease-out;
+    z-index: 10;
   }
 
   .hero-badge {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.75rem;
-    color: var(--blue);
-    border: 1px solid rgba(137,180,250,0.25);
-    padding: 0.3rem 0.9rem;
-    border-radius: 999px;
-    margin-bottom: 1.5rem;
-    letter-spacing: 0.08em;
-    animation: fadeInUp 0.5s ease-out; /* Rozet animasyonu */
+    font-family: 'Orbitron', monospace;
+    font-size: 0.9rem;
+    color: var(--neon-cyan);
+    background: var(--glass);
+    backdrop-filter: blur(10px);
+    padding: 0.5rem 1.5rem;
+    border-radius: 50px;
+    border: 1px solid var(--glass-border);
+    margin-bottom: 2rem;
+    letter-spacing: 0.2em;
+    animation: glitch 2s infinite;
   }
 
   .hero h1 {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: clamp(3rem, 10vw, 7rem);
-    font-weight: 700;
-    letter-spacing: -0.03em;
-    line-height: 1;
-    margin-bottom: 1rem;
-    animation: fadeInUp 0.5s ease-out 0.1s both; /* Başlık animasyonu (gecikmeli) */
+    font-family: 'Orbitron', monospace;
+    font-size: clamp(4rem, 12vw, 9rem);
+    font-weight: 900;
+    line-height: 0.9;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(45deg, var(--neon-cyan) 0%, var(--neon-purple) 50%, var(--neon-pink) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: neonPulse 3s ease-in-out infinite;
   }
-
-  .hero h1 span { color: var(--blue); }
 
   .hero p {
-    font-size: 1.05rem;
-    color: var(--subtext);
-    max-width: 480px;
-    line-height: 1.7;
-    margin-bottom: 2.5rem;
-    animation: fadeInUp 0.5s ease-out 0.2s both; /* Açıklama animasyonu (gecikmeli) */
+    font-size: 1.3rem;
+    color: var(--text-secondary);
+    max-width: 600px;
+    line-height: 1.8;
+    margin-bottom: 3rem;
+    text-shadow: 0 0 20px rgba(0,245,255,0.3);
   }
 
-  .hero-btns {
+  .hero-buttons {
     display: flex;
-    gap: 1rem;
+    gap: 1.5rem;
     flex-wrap: wrap;
     justify-content: center;
-    animation: fadeInUp 0.5s ease-out 0.3s both; /* Butonlar animasyonu (gecikmeli) */
   }
 
   .btn {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.85rem;
-    padding: 0.7rem 1.6rem;
-    border-radius: 8px;
+    padding: 1rem 2.5rem;
+    font-family: 'Orbitron', monospace;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 50px;
     text-decoration: none;
-    transition: all 0.3s ease; /* Hover geçişleri */
-    cursor: pointer;
-    border: none;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 2px solid transparent;
   }
 
   .btn-primary {
-    background: var(--blue);
-    color: var(--bg);
-    font-weight: 600;
+    background: linear-gradient(45deg, var(--neon-cyan), var(--neon-purple));
+    color: #000;
+    box-shadow: 0 0 30px var(--accent-glow);
   }
 
   .btn-primary:hover {
-    background: #a8c9ff;
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(137,180,250,0.3);
+    transform: translateY(-10px) scale(1.05);
+    box-shadow: 0 20px 40px rgba(0,245,255,0.4);
   }
 
-  .btn-ghost {
-    background: transparent;
-    color: var(--text);
-    border: 1px solid var(--overlay);
+  .btn-secondary {
+    background: var(--glass);
+    backdrop-filter: blur(20px);
+    color: var(--text-main);
+    border: 2px solid var(--glass-border);
   }
 
-  .btn-ghost:hover {
-    border-color: var(--blue);
-    color: var(--blue);
-    background: rgba(137,180,250,0.05);
+  .btn-secondary:hover {
+    border-color: var(--neon-cyan);
+    box-shadow: 0 0 30px var(--accent-glow);
+    transform: translateY(-5px);
   }
 
+  /* SECTIONS */
   section {
-    padding: 6rem 2rem;
-    max-width: 1000px;
+    padding: 8rem 2rem;
+    max-width: 1200px;
     margin: 0 auto;
+    position: relative;
+    z-index: 10;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 4rem;
   }
 
   .section-label {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.72rem;
-    color: var(--blue);
-    letter-spacing: 0.12em;
+    font-family: 'Orbitron', monospace;
+    font-size: 0.8rem;
+    color: var(--neon-pink);
+    letter-spacing: 0.3em;
     text-transform: uppercase;
-    margin-bottom: 0.75rem;
+    margin-bottom: 1rem;
+    animation: scanline 2s infinite;
   }
 
   .section-title {
-    font-size: 2rem;
-    font-weight: 500;
-    margin-bottom: 3rem;
-    color: var(--text);
+    font-family: 'Orbitron', monospace;
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 700;
+    background: linear-gradient(45deg, var(--neon-cyan), var(--neon-purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 
-  /* SCREENSHOTS */
-  .screenshots {
+  /* SHOWCASE */
+  .showcase-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
   }
 
-  .screenshot {
-    border-radius: 12px;
+  .showcase-item {
+    background: var(--glass);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
     overflow: hidden;
-    border: 1px solid var(--overlay);
-    transition: all 0.3s ease; /* Hover ve ölçekleme geçişi */
-    background: var(--surface);
-    opacity: 0; /* Animasyon başlayana kadar gizli */
-    animation: scaleIn 0.5s ease-out forwards; /* Görüntü animasyonu */
+    position: relative;
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   }
 
-  .screenshot:first-child {
-    grid-column: 1 / -1;
-    animation-delay: 0.4s;
+  .showcase-item::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(45deg, transparent, var(--accent-glow), transparent);
+    opacity: 0;
+    transition: opacity 0.5s ease;
   }
 
-  .screenshot:nth-child(2) {
-    animation-delay: 0.5s;
+  .showcase-item:hover::before {
+    opacity: 1;
   }
 
-  .screenshot:nth-child(3) {
-    animation-delay: 0.6s;
+  .showcase-item:hover {
+    transform: translateY(-20px) rotateX(5deg);
+    border-color: var(--neon-cyan);
+    box-shadow: 0 30px 60px rgba(0,245,255,0.3);
   }
 
-  .screenshot:hover {
-    border-color: var(--blue);
-    transform: translateY(-4px) scale(1.02);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-  }
-
-  .screenshot img {
+  .showcase-img {
     width: 100%;
-    height: auto;
-    display: block;
-    transition: transform 0.3s ease;
+    height: 250px;
+    object-fit: cover;
+    transition: transform 0.5s ease;
   }
 
-  .screenshot:hover img {
-    transform: scale(1.01);
+  .showcase-item:hover .showcase-img {
+    transform: scale(1.1);
   }
 
-  .screenshot-placeholder {
-    aspect-ratio: 16/9;
-    background: var(--surface2);
+  .showcase-placeholder {
+    height: 250px;
+    background: rgba(0,245,255,0.1);
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--muted);
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.8rem;
-  }
-
-  .screenshot:first-child .screenshot-placeholder {
-    aspect-ratio: 16/8;
+    color: var(--neon-cyan);
+    font-family: 'Orbitron', monospace;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
   }
 
   /* STACK */
   .stack-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 0.75rem;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
   }
 
   .stack-item {
-    background: var(--surface);
-    border: 1px solid var(--overlay);
-    border-radius: 10px;
-    padding: 1rem 1.25rem;
+    background: var(--glass);
+    backdrop-filter: blur(15px);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    padding: 1.5rem;
     display: flex;
     align-items: center;
-    gap: 0.85rem;
-    transition: all 0.3s ease; /* Hover geçişleri */
+    gap: 1rem;
     text-decoration: none;
     color: inherit;
-    opacity: 0;
-    animation: slideIn 0.4s ease-out forwards;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .stack-item::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%; width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, var(--accent-glow), transparent);
+    transition: left 0.5s ease;
+  }
+
+  .stack-item:hover::before {
+    left: 100%;
   }
 
   .stack-item:hover {
-    border-color: var(--blue);
-    background: var(--surface2);
-    transform: translateX(3px);
+    transform: translateY(-10px) scale(1.02);
+    border-color: var(--neon-cyan);
+    box-shadow: 0 20px 40px rgba(0,245,255,0.2);
   }
 
   .stack-icon {
-    width: 36px; height: 36px;
-    border-radius: 8px;
+    width: 60px; height: 60px;
+    border-radius: 16px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.1rem;
+    font-size: 1.8rem;
+    background: linear-gradient(45deg, var(--neon-cyan), var(--neon-purple));
+    color: #000;
     flex-shrink: 0;
-    transition: transform 0.3s ease;
+    transition: all 0.3s ease;
   }
 
   .stack-item:hover .stack-icon {
-    transform: scale(1.1) rotate(5deg);
+    transform: rotate(360deg) scale(1.1);
   }
 
-  .stack-info { min-width: 0; }
-  .stack-name {
-    font-weight: 500;
-    font-size: 0.9rem;
-    color: var(--text);
+  .stack-info h3 {
+    font-family: 'Orbitron', monospace;
+    font-size: 1.2rem;
+    margin-bottom: 0.25rem;
+    color: var(--text-main);
   }
-  .stack-cat {
-    font-size: 0.75rem;
-    color: var(--muted);
-    font-family: 'JetBrains Mono', monospace;
+
+  .stack-info p {
+    color: var(--text-muted);
+    font-size: 0.85rem;
   }
 
   /* KEYBINDS */
-  .keybinds-list {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+  .keybinds-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 1rem;
   }
 
-  .keybind-row {
+  .keybind-item {
+    background: var(--glass);
+    backdrop-filter: blur(15px);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    padding: 1.5rem;
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    padding: 0.85rem 1.25rem;
-    background: var(--surface);
-    border: 1px solid var(--overlay);
-    border-radius: 10px;
-    transition: all 0.3s ease; /* Hover geçişleri */
+    align-items: center;
+    transition: all 0.3s ease;
   }
 
-  .keybind-row:hover {
-    border-color: var(--blue);
-    background: var(--surface2);
-    transform: scale(1.01);
+  .keybind-item:hover {
+    border-color: var(--neon-pink);
+    transform: scale(1.02);
+    box-shadow: 0 15px 30px rgba(255,0,255,0.2);
   }
 
-  .keybind-action {
-    font-size: 0.9rem;
-    color: var(--text);
+  .keybind-text h4 {
+    font-family: 'Orbitron', monospace;
+    font-size: 1.1rem;
+    margin-bottom: 0.25rem;
+    color: var(--neon-cyan);
   }
 
-  .keybind-desc {
-    font-size: 0.8rem;
-    color: var(--muted);
+  .keybind-text p {
+    color: var(--text-muted);
+    font-size: 0.85rem;
   }
 
   .keybind-keys {
     display: flex;
-    gap: 0.3rem;
+    gap: 0.5rem;
     align-items: center;
-    flex-shrink: 0;
-    margin-left: 1rem;
   }
 
-  kbd {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.72rem;
-    background: var(--surface2);
-    border: 1px solid var(--overlay);
-    color: var(--blue);
-    padding: 0.25rem 0.55rem;
-    border-radius: 5px;
-    transition: all 0.2s ease;
-  }
-
-  .keybind-row:hover kbd {
-    background: var(--blue);
-    color: var(--bg);
-    border-color: var(--blue);
-  }
-
-  .key-plus {
-    color: var(--muted);
-    font-size: 0.75rem;
-  }
-
-  footer {
-    border-top: 1px solid var(--overlay);
-    padding: 2.5rem;
-    text-align: center;
-    color: var(--muted);
-    font-family: 'JetBrains Mono', monospace;
+  .key {
+    background: linear-gradient(45deg, var(--neon-purple), var(--neon-pink));
+    color: #000;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-family: 'Orbitron', monospace;
     font-size: 0.8rem;
-    animation: fadeIn 0.5s ease-out 0.8s both;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 15px rgba(170,0,255,0.5);
   }
 
-  footer a { color: var(--blue); text-decoration: none; transition: color 0.3s ease; }
-  footer a:hover { color: var(--text); text-decoration: underline; }
+  .keybind-item:hover .key {
+    box-shadow: 0 0 25px rgba(255,0,255,0.8);
+    transform: scale(1.1);
+  }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--glass-border);
+    padding: 3rem 2rem;
+    text-align: center;
+    color: var(--text-muted);
+    font-family: 'Orbitron', monospace;
+  }
+
+  footer a {
+    color: var(--neon-cyan);
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  footer a:hover {
+    text-shadow: 0 0 15px var(--neon-cyan);
+    transform: scale(1.05);
+  }
 
   .divider {
     height: 1px;
-    background: var(--overlay);
-    max-width: 1000px;
-    margin: 0 auto;
-    opacity: 0.5;
+    background: linear-gradient(90deg, transparent, var(--neon-cyan), var(--neon-purple), var(--neon-pink), transparent);
+    max-width: 800px;
+    margin: 0 auto 4rem;
+    border-radius: 1px;
   }
 
-  @media (max-width: 600px) {
-    nav { padding: 1rem 1.25rem; }
-    .nav-links { gap: 1.2rem; }
-    .screenshots { grid-template-columns: 1fr; }
-    .screenshots .screenshot:first-child { grid-column: 1; }
-    .keybind-desc { display: none; }
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { gap: 1.5rem; font-size: 0.9rem; }
+    .hero-buttons { flex-direction: column; align-items: center; }
+    .keybinds-grid { grid-template-columns: 1fr; }
+    .showcase-grid { grid-template-columns: 1fr; }
   }
-</style>
-</head>
-<body>
 
-<nav>
-  <div class="nav-logo">vroomies 💧</div>
-  <ul class="nav-links">
-    <li><a href="#showcase">showcase</a></li>
-    <li><a href="#stack">stack</a></li>
-    <li><a href="#keybinds">keybinds</a></li>
-    <li><a href="https://github.com/zzzyyyuuuuu/vroomies">github</a></li>
-  </ul>
-</nav>
+  /* LOADING ANIMATION */
+  .loading {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: var(--bg-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    opacity: 1;
+    transition: opacity 0.5s ease;
+  }
 
-<div class="hero">
-  <div class="hero-badge">hyprland · cachyos · quickshell</div>
-  <h1>vroom<span>ies</span></h1>
-  <p>A fast, minimal, opinionated dotfiles setup. Built for those who live in the terminal.</p>
-  <div class="hero-btns">
-    <a href="https://github.com/zzzyyyuuuuu/vroomies" class="btn btn-primary">view on github</a>
-    <a href="#showcase" class="btn btn-ghost">see screenshots</a>
-  </div>
-</div>
+  .loading.hidden { opacity: 0; pointer-events: none; }
 
-<div class="divider"></div>
+  .loader {
+    width: 60px;
+    height: 60px;
+    border: 4px solid var(--glass);
+    border-top: 4px solid var(--neon-cyan);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
 
-<section id="showcase">
-  <div class="section-label">// gallery</div>
-  <div class="section-title">showcase</div>
-  <div class="screenshots">
-    <div class="screenshot">
-      <img src="gallery/hero.png" alt="hero" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-      <div class="screenshot-placeholder">hero.png</div>
-    </div>
-    <div class="screenshot">
-      <img src="gallery/wallpaper-switcher.png" alt="wallpaper-switcher" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-      <div class="screenshot-placeholder">wallpaper-switcher.png</div>
-    </div>
-    <div class="screenshot">
-      <img src="gallery/launcher.png" alt="launcher" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-      <div class="screenshot-placeholder">launcher.png</div>
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<section id="stack">
-  <div class="section-label">// tools</div>
-  <div class="section-title">stack</div>
-  <div class="stack-grid">
-    <a href="https://cachyos.org/" class="stack-item" style="animation-delay: 0.1s;">
-      <div class="stack-icon" style="background:rgba(137,180,250,0.1);">🐧</div>
-      <div class="stack-info">
-        <div class="stack-name">CachyOS</div>
-        <div class="stack-cat">os</div>
-      </div>
-    </a>
-    <a href="https://github.com/hyprwm/Hyprland" class="stack-item" style="animation-delay: 0.15s;">
-      <div class="stack-icon" style="background:rgba(203,166,247,0.1);">🪟</div>
-      <div class="stack-info">
-        <div class="stack-name">Hyprland</div>
-        <div class="stack-cat">compositor</div>
-      </div>
-    </a>
-    <a href="https://github.com/kovidgoyal/kitty" class="stack-item" style="animation-delay: 0.2s;">
-      <div class="stack-icon" style="background:rgba(148,226,213,0.1);">🖥️</div>
-      <div class="stack-info">
-        <div class="stack-name">Kitty</div>
-        <div class="stack-cat">terminal</div>
-      </div>
-    </a>
-    <a href="https://quickshell.org/" class="stack-item" style="animation-delay: 0.25s;">
-      <div class="stack-icon" style="background:rgba(249,226,175,0.1);">📊</div>
-      <div class="stack-info">
-        <div class="stack-name">Quickshell</div>
-        <div class="stack-cat">bar · launcher</div>
-      </div>
-    </a>
-    <a href="https://github.com/neovim/neovim" class="stack-item" style="animation-delay: 0.3s;">
-      <div class="stack-icon" style="background:rgba(166,227,161,0.1);">✏️</div>
-      <div class="stack-info">
-        <div class="stack-name">Neovim</div>
-        <div class="stack-cat">editor</div>
-      </div>
-    </a>
-    <a href="https://github.com/sxyazi/yazi" class="stack-item" style="animation-delay: 0.35s;">
-      <div class="stack-icon" style="background:rgba(243,188,168,0.1);">📁</div>
-      <div class="stack-info">
-        <div class="stack-name">yazi</div>
-        <div class="stack-cat">file manager</div>
-      </div>
-    </a>
-    <a href="https://github.com/zsh-users/zsh" class="stack-item" style="animation-delay: 0.4s;">
-      <div class="stack-icon" style="background:rgba(137,180,250,0.1);">🐚</div>
-      <div class="stack-info">
-        <div class="stack-name">Zsh</div>
-        <div class="stack-cat">shell</div>
-      </div>
-    </a>
-    <a href="http://spotify.com" class="stack-item" style="animation-delay: 0.45s;">
-      <div class="stack-icon" style="background:rgba(166,227,161,0.1);">🎵</div>
-      <div class="stack-info">
-        <div class="stack-name">Spotify</div>
-        <div class="stack-cat">music</div>
-      </div>
-    </a>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<section id="keybinds">
-  <div class="section-label">// shortcuts</div>
-  <div class="section-title">keybinds</div>
-  <div class="keybinds-list">
-    <div class="keybind-row">
-      <div>
-        <div class="keybind-action">Terminal</div>
-        <div class="keybind-desc">Launch Kitty</div>
-      </div>
-      <div class="keybind-keys">
-        <kbd>SUPER</kbd><span class="key-plus">+</span><kbd>RETURN</kbd>
-      </div>
-    </div>
-    <div class="keybind-row">
-      <div>
-        <div class="keybind-action">File Manager</div>
-        <div class="keybind-desc">Launch yazi</div>
-      </div>
-      <div class="keybind-keys">
-        <kbd>SUPER</kbd><span class="key-plus">+</span><kbd>SHIFT</kbd><span class="key-plus">+</span><kbd>RETURN</kbd>
-      </div>
-    </div>
-    <div class="keybind-row">
-      <div>
-        <div class="keybind-action">Floating Window</div>
-        <div class="keybind-desc">Toggle float mode</div>
-      </div>
-      <div class="keybind-keys">
-        <kbd>SUPER</kbd><span class="key-plus">+</span><kbd>F</kbd>
-      </div>
-    </div>
-    <div class="keybind-row">
-      <div>
-        <div class="keybind-action">Browser</div>
-        <div class="keybind-desc">Open default browser</div>
-      </div>
-      <div class="keybind-keys">
-        <kbd>SUPER</kbd><span class="key-plus">+</span><kbd>W</kbd>
-      </div>
-    </div>
-    <div class="keybind-row">
-      <div>
-        <div class="keybind-action">App Launcher</div>
-        <div class="keybind-desc">Open app menu</div>
-      </div>
-      <div class="keybind-keys">
-        <kbd>SUPER</kbd><span class="key-plus">+</span><kbd>D</kbd>
-      </div>
-    </div>
-    <div class="keybind-row">
-      <div>
-        <div class="keybind-action">Wallpaper Picker</div>
-        <div class="keybind-desc">Run wallpaper selector</div>
-      </div>
-      <div class="keybind-keys">
-        <kbd>SUPER</kbd><span class="key-plus">+</span><kbd>SHIFT</kbd><span class="key-plus">+</span><kbd>A</kbd>
-      </div>
-    </div>
-  </div>
-</section>
-
-<footer>
-  made with 💧 by <a href="https://github.com/zzzyyyuuuuu">zzzyyyuuuuu</a>
-   · 
-  thanks to <a href="https://www.reddit.com/r/hyprland/">r/hyprland</a> &
-  <a href="https://www.reddit.com/r/QuickShell/">r/QuickShell</a>
-</footer>
-
-</body>
-</html>
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% {
