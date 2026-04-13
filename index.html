@@ -36,7 +36,6 @@
     overflow-x: hidden;
   }
 
-  /* NAV */
   nav {
     position: fixed;
     top: 0; left: 0; right: 0;
@@ -73,7 +72,6 @@
 
   .nav-links a:hover { color: var(--text); }
 
-  /* HERO */
   .hero {
     min-height: 100vh;
     display: flex;
@@ -166,7 +164,6 @@
     color: var(--blue);
   }
 
-  /* SECTIONS */
   section {
     padding: 6rem 2rem;
     max-width: 1000px;
@@ -189,7 +186,6 @@
     color: var(--text);
   }
 
-  /* SCREENSHOTS */
   .screenshots {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -215,6 +211,7 @@
 
   .screenshot img {
     width: 100%;
+    height: auto;
     display: block;
   }
 
@@ -233,7 +230,6 @@
     aspect-ratio: 16/8;
   }
 
-  /* STACK */
   .stack-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -277,7 +273,6 @@
     font-family: 'JetBrains Mono', monospace;
   }
 
-  /* KEYBINDS */
   .keybinds-list {
     display: flex;
     flex-direction: column;
@@ -330,7 +325,6 @@
     font-size: 0.75rem;
   }
 
-  /* FOOTER */
   footer {
     border-top: 1px solid var(--overlay);
     padding: 2.5rem;
@@ -343,7 +337,6 @@
   footer a { color: var(--blue); text-decoration: none; }
   footer a:hover { text-decoration: underline; }
 
-  /* DIVIDER */
   .divider {
     height: 1px;
     background: var(--overlay);
@@ -373,7 +366,6 @@
   </ul>
 </nav>
 
-<!-- HERO -->
 <div class="hero">
   <div class="hero-badge">hyprland · cachyos · quickshell</div>
   <h1>vroom<span>ies</span></h1>
@@ -386,18 +378,20 @@
 
 <div class="divider"></div>
 
-<!-- SHOWCASE -->
 <section id="showcase">
   <div class="section-label">// gallery</div>
   <div class="section-title">showcase</div>
   <div class="screenshots">
     <div class="screenshot">
-      <div class="screenshot-placeholder">hero.png — place your screenshot here</div>
+      <img src="gallery/hero.png" alt="hero" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <div class="screenshot-placeholder">hero.png</div>
     </div>
     <div class="screenshot">
+      <img src="gallery/wallpaper-switcher.png" alt="wallpaper-switcher" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
       <div class="screenshot-placeholder">wallpaper-switcher.png</div>
     </div>
     <div class="screenshot">
+      <img src="gallery/launcher.png" alt="launcher" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
       <div class="screenshot-placeholder">launcher.png</div>
     </div>
   </div>
@@ -405,7 +399,6 @@
 
 <div class="divider"></div>
 
-<!-- STACK -->
 <section id="stack">
   <div class="section-label">// tools</div>
   <div class="section-title">stack</div>
@@ -471,7 +464,6 @@
 
 <div class="divider"></div>
 
-<!-- KEYBINDS -->
 <section id="keybinds">
   <div class="section-label">// shortcuts</div>
   <div class="section-title">keybinds</div>
@@ -534,8 +526,8 @@
 </section>
 
 <footer>
-  made with 💧 by <a href="https://github.com/zzzyyyuuuuu">zzzyyyuuuuu</a>
-  &nbsp;·&nbsp;
+  made with 💧 by <a href="https://github.com/maxchennn">maxchennn</a>
+   · 
   thanks to <a href="https://www.reddit.com/r/hyprland/">r/hyprland</a> &
   <a href="https://www.reddit.com/r/QuickShell/">r/QuickShell</a>
 </footer>
