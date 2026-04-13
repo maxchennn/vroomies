@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>vroomies 💧</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #11111b;
+    --surface: #181825;
+    --surface2: #1e1e2e;
+    --overlay: #313244;
+    --text: #cdd6f4;
+    --subtext: #a6adc8;
+    --muted: #6c7086;
+    --blue: #89b4fa;
+    --mauve: #cba6f7;
+    --teal: #94e2d5;
+    --green: #a6e3a1;
+    --peach: #fab387;
+    --red: #f38ba8;
+    --yellow: #f9e2af;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 2.5rem;
+    background: rgba(17,17,27,0.7);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .nav-logo {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--blue);
+    letter-spacing: 0.05em;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--subtext);
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--text); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(137,180,250,0.06) 0%, transparent 70%);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+
+  .hero-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--blue);
+    border: 1px solid rgba(137,180,250,0.25);
+    padding: 0.3rem 0.9rem;
+    border-radius: 999px;
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.08em;
+  }
+
+  .hero h1 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: clamp(3rem, 10vw, 7rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    margin-bottom: 1rem;
+  }
+
+  .hero h1 span { color: var(--blue); }
+
+  .hero p {
+    font-size: 1.05rem;
+    color: var(--subtext);
+    max-width: 480px;
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+  }
+
+  .hero-btns {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .btn {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    padding: 0.7rem 1.6rem;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.2s;
+    cursor: pointer;
+    border: none;
+  }
+
+  .btn-primary {
+    background: var(--blue);
+    color: var(--bg);
+    font-weight: 600;
+  }
+
+  .btn-primary:hover {
+    background: #a8c9ff;
+    transform: translateY(-1px);
+  }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--overlay);
+  }
+
+  .btn-ghost:hover {
+    border-color: var(--blue);
+    color: var(--blue);
+  }
+
+  /* SECTIONS */
+  section {
+    padding: 6rem 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--blue);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+
+  .section-title {
+    font-size: 2rem;
+    font-weight: 500;
+    margin-bottom: 3rem;
+    color: var(--text);
+  }
+
+  /* SCREENSHOTS */
+  .screenshots {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .screenshot {
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--overlay);
+    transition: border-color 0.2s, transform 0.2s;
+    background: var(--surface);
+  }
+
+  .screenshot:first-child {
+    grid-column: 1 / -1;
+  }
+
+  .screenshot:hover {
+    border-color: var(--blue);
+    transform: translateY(-2px);
+  }
+
+  .screenshot img {
+    width: 100%;
+    display: block;
+  }
+
+  .screenshot-placeholder {
+    aspect-ratio: 16/9;
+    background: var(--surface2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--muted);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+  }
+
+  .screenshot:first-child .screenshot-placeholder {
+    aspect-ratio: 16/8;
+  }
+
+  /* STACK */
+  .stack-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 0.75rem;
+  }
+
+  .stack-item {
+    background: var(--surface);
+    border: 1px solid var(--overlay);
+    border-radius: 10px;
+    padding: 1rem 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    transition: border-color 0.2s;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .stack-item:hover { border-color: var(--blue); }
+
+  .stack-icon {
+    width: 36px; height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+
+  .stack-info { min-width: 0; }
+  .stack-name {
+    font-weight: 500;
+    font-size: 0.9rem;
+    color: var(--text);
+  }
+  .stack-cat {
+    font-size: 0.75rem;
+    color: var(--muted);
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* KEYBINDS */
+  .keybinds-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .keybind-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.85rem 1.25rem;
+    background: var(--surface);
+    border: 1px solid var(--overlay);
+    border-radius: 10px;
+    transition: border-color 0.2s;
+  }
+
+  .keybind-row:hover { border-color: var(--overlay); }
+
+  .keybind-action {
+    font-size: 0.9rem;
+    color: var(--text);
+  }
+
+  .keybind-desc {
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+
+  .keybind-keys {
+    display: flex;
+    gap: 0.3rem;
+    align-items: center;
+    flex-shrink: 0;
+    margin-left: 1rem;
+  }
+
+  kbd {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    background: var(--surface2);
+    border: 1px solid var(--overlay);
+    color: var(--blue);
+    padding: 0.25rem 0.55rem;
+    border-radius: 5px;
+  }
+
+  .key-plus {
+    color: var(--muted);
+    font-size: 0.75rem;
+  }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--overlay);
+    padding: 2.5rem;
+    text-align: center;
+    color: var(--muted);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+  }
+
+  footer a { color: var(--blue); text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+
+  /* DIVIDER */
+  .divider {
+    height: 1px;
+    background: var(--overlay);
+    max-width: 1000px;
+    margin: 0 auto;
+    opacity: 0.5;
+  }
+
+  @media (max-width: 600px) {
+    nav { padding: 1rem 1.25rem; }
+    .nav-links { gap: 1.2rem; }
+    .screenshots { grid-template-columns: 1fr; }
+    .screenshots .screenshot:first-child { grid-column: 1; }
+    .keybind-desc { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">vroomies 💧</div>
+  <ul class="nav-links">
+    <li><a href="#showcase">showcase</a></li>
+    <li><a href="#stack">stack</a></li>
+    <li><a href="#keybinds">keybinds</a></li>
+    <li><a href="https://github.com/zzzyyyuuuuu/vroomies">github</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">hyprland · cachyos · quickshell</div>
+  <h1>vroom<span>ies</span></h1>
+  <p>A fast, minimal, opinionated dotfiles setup. Built for those who live in the terminal.</p>
+  <div class="hero-btns">
+    <a href="https://github.com/zzzyyyuuuuu/vroomies" class="btn btn-primary">view on github</a>
+    <a href="#showcase" class="btn btn-ghost">see screenshots</a>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- SHOWCASE -->
+<section id="showcase">
+  <div class="section-label">// gallery</div>
+  <div class="section-title">showcase</div>
+  <div class="screenshots">
+    <div class="screenshot">
+      <div class="screenshot-placeholder">hero.png — place your screenshot here</div>
+    </div>
+    <div class="screenshot">
+      <div class="screenshot-placeholder">wallpaper-switcher.png</div>
+    </div>
+    <div class="screenshot">
+      <div class="screenshot-placeholder">launcher.png</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- STACK -->
+<section id="stack">
+  <div class="section-label">// tools</div>
+  <div class="section-title">stack</div>
+  <div class="stack-grid">
+    <a href="https://cachyos.org/" class="stack-item">
+      <div class="stack-icon" style="background:rgba(137,180,250,0.1);">🐧</div>
+      <div class="stack-info">
+        <div class="stack-name">CachyOS</div>
+        <div class="stack-cat">os</div>
+      </div>
+    </a>
+    <a href="https://github.com/hyprwm/Hyprland" class="stack-item">
+      <div class="stack-icon" style="background:rgba(203,166,247,0.1);">🪟</div>
+      <div class="stack-info">
+        <div class="stack-name">Hyprland</div>
+        <div class="stack-cat">compositor</div>
+      </div>
+    </a>
+    <a href="https://github.com/kovidgoyal/kitty" class="stack-item">
+      <div class="stack-icon" style="background:rgba(148,226,213,0.1);">🖥️</div>
+      <div class="stack-info">
+        <div class="stack-name">Kitty</div>
+        <div class="stack-cat">terminal</div>
+      </div>
+    </a>
+    <a href="https://quickshell.org/" class="stack-item">
+      <div class="stack-icon" style="background:rgba(249,226,175,0.1);">📊</div>
+      <div class="stack-info">
+        <div class="stack-name">Quickshell</div>
+        <div class="stack-cat">bar · launcher</div>
+      </div>
+    </a>
+    <a href="https://github.com/neovim/neovim" class="stack-item">
+      <div class="stack-icon" style="background:rgba(166,227,161,0.1);">✏️</div>
+      <div class="stack-info">
+        <div class="stack-name">Neovim</div>
+        <div class="stack-cat">editor</div>
+      </div>
+    </a>
+    <a href="https://github.com/sxyazi/yazi" class="stack-item">
+      <div class="stack-icon" style="background:rgba(243,188,168,0.1);">📁</div>
+      <div class="stack-info">
+        <div class="stack-name">yazi</div>
+        <div class="stack-cat">file manager</div>
+      </div>
+    </a>
+    <a href="https://github.com/zsh-users/zsh" class="stack-item">
+      <div class="stack-icon" style="background:rgba(137,180,250,0.1);">🐚</div>
+      <div class="stack-info">
+        <div class="stack-name">Zsh</div>
+        <div class="stack-cat">shell</div>
+      </div>
+    </a>
+    <a href="https://open.spotify.com/" class="stack-item">
+      <div class="stack-icon" style="background:rgba(166,227,161,0.1);">🎵</div>
+      <div class="stack-info">
+        <div class="stack-name">Spotify</div>
+        <div class="stack-cat">music</div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- KEYBINDS -->
+<section id="keybinds">
+  <div class="section-label">// shortcuts</div>
+  <div class="section-title">keybinds</div>
+  <div class="keybinds-list">
+    <div class="keybind-row">
+      <div>
+        <div class="keybind-action">Terminal</div>
+        <div class="keybind-desc">Launch Kitty</div>
+      </div>
+      <div class="keybind-keys">
+        <kbd>SUPER</kbd><span class="key-plus">+</span><kbd>RETURN</kbd>
+      </div>
+    </div>
+    <div class="keybind-row">
+      <div>
+        <div class="keybind-action">File Manager</div>
+        <div class="keybind-desc">Launch yazi</div>
+      </div>
+      <div class="keybind-keys">
+        <kbd>SUPER</kbd><span class="key-plus">+</span><kbd>SHIFT</kbd><span class="key-plus">+</span><kbd>RETURN</kbd>
+      </div>
+    </div>
+    <div class="keybind-row">
+      <div>
+        <div class="keybind-action">Floating Window</div>
+        <div class="keybind-desc">Toggle float mode</div>
+      </div>
+      <div class="keybind-keys">
+        <kbd>SUPER</kbd><span class="key-plus">+</span><kbd>F</kbd>
+      </div>
+    </div>
+    <div class="keybind-row">
+      <div>
+        <div class="keybind-action">Browser</div>
+        <div class="keybind-desc">Open default browser</div>
+      </div>
+      <div class="keybind-keys">
+        <kbd>SUPER</kbd><span class="key-plus">+</span><kbd>W</kbd>
+      </div>
+    </div>
+    <div class="keybind-row">
+      <div>
+        <div class="keybind-action">App Launcher</div>
+        <div class="keybind-desc">Open app menu</div>
+      </div>
+      <div class="keybind-keys">
+        <kbd>SUPER</kbd><span class="key-plus">+</span><kbd>D</kbd>
+      </div>
+    </div>
+    <div class="keybind-row">
+      <div>
+        <div class="keybind-action">Wallpaper Picker</div>
+        <div class="keybind-desc">Run wallpaper selector</div>
+      </div>
+      <div class="keybind-keys">
+        <kbd>SUPER</kbd><span class="key-plus">+</span><kbd>SHIFT</kbd><span class="key-plus">+</span><kbd>A</kbd>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  made with 💧 by <a href="https://github.com/zzzyyyuuuuu">zzzyyyuuuuu</a>
+  &nbsp;·&nbsp;
+  thanks to <a href="https://www.reddit.com/r/hyprland/">r/hyprland</a> &
+  <a href="https://www.reddit.com/r/QuickShell/">r/QuickShell</a>
+</footer>
+
+</body>
+</html>
