@@ -1,534 +1,517 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>vroomies 🌊</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>vroomies</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=JetBrains+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
 <style>
-  *, *::before, *::after { 
-    box-sizing: border-box; 
-    margin: 0; 
-    padding: 0; 
-  }
-
-  :root {
-    --bg-primary: #0a0a1a;
-    --bg-gradient: linear-gradient(135deg, #0a0a1a 0%, #1a0a2e 50%, #2a0a4e 100%);
-    --glass: rgba(255,255,255,0.05);
-    --glass-border: rgba(255,255,255,0.1);
-    --neon-cyan: #00f5ff;
-    --neon-purple: #aa00ff;
-    --neon-pink: #ff00ff;
-    --text-main: #e0e7ff;
-    --text-secondary: #a0b2ff;
-    --text-muted: #6474ff;
-    --accent-glow: rgba(0, 245, 255, 0.5);
-  }
-
-  * { scrollbar-width: thin; scrollbar-color: var(--neon-cyan) transparent; }
-  ::-webkit-scrollbar { width: 8px; }
-  ::-webkit-scrollbar-track { background: transparent; }
-  ::-webkit-scrollbar-thumb { background: var(--neon-cyan); border-radius: 4px; }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    font-family: 'Space Grotesk', sans-serif;
-    background: var(--bg-gradient);
-    color: var(--text-main);
-    min-height: 100vh;
-    overflow-x: hidden;
-    position: relative;
-  }
-
-  /* PARTICLE BACKGROUND */
-  .particles {
-    position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    pointer-events: none;
-    z-index: 1;
-  }
-
-  .particle {
-    position: absolute;
-    background: var(--neon-cyan);
-    border-radius: 50%;
-    animation: float 20s infinite linear;
-  }
-
-  @keyframes float {
-    0% { transform: translateY(100vh) scale(0); opacity: 0; }
-    10% { opacity: 1; }
-    90% { opacity: 1; }
-    100% { transform: translateY(-100px) scale(1); opacity: 0; }
-  }
-
-  /* NEON GLOW ANIMATIONS */
-  @keyframes neonPulse {
-    0%, 100% { text-shadow: 0 0 5px var(--neon-cyan), 0 0 10px var(--neon-cyan), 0 0 20px var(--neon-cyan); }
-    50% { text-shadow: 0 0 20px var(--neon-purple), 0 0 30px var(--neon-purple), 0 0 40px var(--neon-purple); }
-  }
-
-  @keyframes glitch {
-    0% { transform: translate(0); }
-    20% { transform: translate(-2px, 2px); }
-    40% { transform: translate(-2px, -2px); }
-    60% { transform: translate(2px, 2px); }
-    80% { transform: translate(2px, -2px); }
-    100% { transform: translate(0); }
-  }
-
-  @keyframes scanline {
-    0% { transform: translateY(-100%); }
-    100% { transform: translateY(100%); }
-  }
-
-  @keyframes matrixRain {
-    0% { background-position: 0% 100%; }
-    100% { background-position: 0% -100%; }
-  }
-
-  /* NAV - GLASSMORPHISM */
-  nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 1000;
-    backdrop-filter: blur(20px);
-    background: var(--glass);
-    border-bottom: 1px solid var(--glass-border);
-    padding: 1rem 3rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .logo {
-    font-family: 'Orbitron', monospace;
-    font-size: 1.5rem;
-    font-weight: 900;
-    background: linear-gradient(45deg, var(--neon-cyan), var(--neon-purple));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    animation: neonPulse 2s ease-in-out infinite;
-  }
-
-  .nav-links {
-    display: flex;
-    gap: 2.5rem;
-    list-style: none;
-  }
-
-  .nav-links a {
-    color: var(--text-secondary);
-    text-decoration: none;
-    font-weight: 500;
-    position: relative;
-    transition: all 0.3s ease;
-  }
-
-  .nav-links a::after {
-    content: '';
-    position: absolute;
-    bottom: -5px;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: linear-gradient(90deg, var(--neon-cyan), var(--neon-pink));
-    transition: width 0.3s ease;
-  }
-
-  .nav-links a:hover::after {
-    width: 100%;
-  }
-
-  .nav-links a:hover {
-    color: var(--neon-cyan);
-    text-shadow: 0 0 10px var(--neon-cyan);
-  }
-
-  /* HERO SECTION */
-  .hero {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 2rem;
-    position: relative;
-    z-index: 10;
-  }
-
-  .hero-badge {
-    font-family: 'Orbitron', monospace;
-    font-size: 0.9rem;
-    color: var(--neon-cyan);
-    background: var(--glass);
-    backdrop-filter: blur(10px);
-    padding: 0.5rem 1.5rem;
-    border-radius: 50px;
-    border: 1px solid var(--glass-border);
-    margin-bottom: 2rem;
-    letter-spacing: 0.2em;
-    animation: glitch 2s infinite;
-  }
-
-  .hero h1 {
-    font-family: 'Orbitron', monospace;
-    font-size: clamp(4rem, 12vw, 9rem);
-    font-weight: 900;
-    line-height: 0.9;
-    margin-bottom: 1.5rem;
-    background: linear-gradient(45deg, var(--neon-cyan) 0%, var(--neon-purple) 50%, var(--neon-pink) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    animation: neonPulse 3s ease-in-out infinite;
-  }
-
-  .hero p {
-    font-size: 1.3rem;
-    color: var(--text-secondary);
-    max-width: 600px;
-    line-height: 1.8;
-    margin-bottom: 3rem;
-    text-shadow: 0 0 20px rgba(0,245,255,0.3);
-  }
-
-  .hero-buttons {
-    display: flex;
-    gap: 1.5rem;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  .btn {
-    padding: 1rem 2.5rem;
-    font-family: 'Orbitron', monospace;
-    font-size: 1rem;
-    font-weight: 600;
-    border-radius: 50px;
-    text-decoration: none;
-    position: relative;
-    overflow: hidden;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    border: 2px solid transparent;
-  }
-
-  .btn-primary {
-    background: linear-gradient(45deg, var(--neon-cyan), var(--neon-purple));
-    color: #000;
-    box-shadow: 0 0 30px var(--accent-glow);
-  }
-
-  .btn-primary:hover {
-    transform: translateY(-10px) scale(1.05);
-    box-shadow: 0 20px 40px rgba(0,245,255,0.4);
-  }
-
-  .btn-secondary {
-    background: var(--glass);
-    backdrop-filter: blur(20px);
-    color: var(--text-main);
-    border: 2px solid var(--glass-border);
-  }
-
-  .btn-secondary:hover {
-    border-color: var(--neon-cyan);
-    box-shadow: 0 0 30px var(--accent-glow);
-    transform: translateY(-5px);
-  }
-
-  /* SECTIONS */
-  section {
-    padding: 8rem 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
-    position: relative;
-    z-index: 10;
-  }
-
-  .section-header {
-    text-align: center;
-    margin-bottom: 4rem;
-  }
-
-  .section-label {
-    font-family: 'Orbitron', monospace;
-    font-size: 0.8rem;
-    color: var(--neon-pink);
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    margin-bottom: 1rem;
-    animation: scanline 2s infinite;
-  }
-
-  .section-title {
-    font-family: 'Orbitron', monospace;
-    font-size: clamp(2.5rem, 6vw, 4rem);
-    font-weight: 700;
-    background: linear-gradient(45deg, var(--neon-cyan), var(--neon-purple));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  /* SHOWCASE */
-  .showcase-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 2rem;
-  }
-
-  .showcase-item {
-    background: var(--glass);
-    backdrop-filter: blur(20px);
-    border: 1px solid var(--glass-border);
-    border-radius: 20px;
-    overflow: hidden;
-    position: relative;
-    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  }
-
-  .showcase-item::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: linear-gradient(45deg, transparent, var(--accent-glow), transparent);
-    opacity: 0;
-    transition: opacity 0.5s ease;
-  }
-
-  .showcase-item:hover::before {
-    opacity: 1;
-  }
-
-  .showcase-item:hover {
-    transform: translateY(-20px) rotateX(5deg);
-    border-color: var(--neon-cyan);
-    box-shadow: 0 30px 60px rgba(0,245,255,0.3);
-  }
-
-  .showcase-img {
-    width: 100%;
-    height: 250px;
-    object-fit: cover;
-    transition: transform 0.5s ease;
-  }
-
-  .showcase-item:hover .showcase-img {
-    transform: scale(1.1);
-  }
-
-  .showcase-placeholder {
-    height: 250px;
-    background: rgba(0,245,255,0.1);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--neon-cyan);
-    font-family: 'Orbitron', monospace;
-    font-size: 1rem;
-    text-transform: uppercase;
-    letter-spacing: 0.2em;
-  }
-
-  /* STACK */
-  .stack-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.5rem;
-  }
-
-  .stack-item {
-    background: var(--glass);
-    backdrop-filter: blur(15px);
-    border: 1px solid var(--glass-border);
-    border-radius: 16px;
-    padding: 1.5rem;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    text-decoration: none;
-    color: inherit;
-    transition: all 0.4s ease;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .stack-item::before {
-    content: '';
-    position: absolute;
-    top: 0; left: -100%; width: 100%; height: 100%;
-    background: linear-gradient(90deg, transparent, var(--accent-glow), transparent);
-    transition: left 0.5s ease;
-  }
-
-  .stack-item:hover::before {
-    left: 100%;
-  }
-
-  .stack-item:hover {
-    transform: translateY(-10px) scale(1.02);
-    border-color: var(--neon-cyan);
-    box-shadow: 0 20px 40px rgba(0,245,255,0.2);
-  }
-
-  .stack-icon {
-    width: 60px; height: 60px;
-    border-radius: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.8rem;
-    background: linear-gradient(45deg, var(--neon-cyan), var(--neon-purple));
-    color: #000;
-    flex-shrink: 0;
-    transition: all 0.3s ease;
-  }
-
-  .stack-item:hover .stack-icon {
-    transform: rotate(360deg) scale(1.1);
-  }
-
-  .stack-info h3 {
-    font-family: 'Orbitron', monospace;
-    font-size: 1.2rem;
-    margin-bottom: 0.25rem;
-    color: var(--text-main);
-  }
-
-  .stack-info p {
-    color: var(--text-muted);
-    font-size: 0.85rem;
-  }
-
-  /* KEYBINDS */
-  .keybinds-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-    gap: 1rem;
-  }
-
-  .keybind-item {
-    background: var(--glass);
-    backdrop-filter: blur(15px);
-    border: 1px solid var(--glass-border);
-    border-radius: 16px;
-    padding: 1.5rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    transition: all 0.3s ease;
-  }
-
-  .keybind-item:hover {
-    border-color: var(--neon-pink);
-    transform: scale(1.02);
-    box-shadow: 0 15px 30px rgba(255,0,255,0.2);
-  }
-
-  .keybind-text h4 {
-    font-family: 'Orbitron', monospace;
-    font-size: 1.1rem;
-    margin-bottom: 0.25rem;
-    color: var(--neon-cyan);
-  }
-
-  .keybind-text p {
-    color: var(--text-muted);
-    font-size: 0.85rem;
-  }
-
-  .keybind-keys {
-    display: flex;
-    gap: 0.5rem;
-    align-items: center;
-  }
-
-  .key {
-    background: linear-gradient(45deg, var(--neon-purple), var(--neon-pink));
-    color: #000;
-    padding: 0.5rem 1rem;
-    border-radius: 8px;
-    font-family: 'Orbitron', monospace;
-    font-size: 0.8rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    transition: all 0.3s ease;
-    box-shadow: 0 0 15px rgba(170,0,255,0.5);
-  }
-
-  .keybind-item:hover .key {
-    box-shadow: 0 0 25px rgba(255,0,255,0.8);
-    transform: scale(1.1);
-  }
-
-  /* FOOTER */
-  footer {
-    border-top: 1px solid var(--glass-border);
-    padding: 3rem 2rem;
-    text-align: center;
-    color: var(--text-muted);
-    font-family: 'Orbitron', monospace;
-  }
-
-  footer a {
-    color: var(--neon-cyan);
-    text-decoration: none;
-    transition: all 0.3s ease;
-  }
-
-  footer a:hover {
-    text-shadow: 0 0 15px var(--neon-cyan);
-    transform: scale(1.05);
-  }
-
-  .divider {
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--neon-cyan), var(--neon-purple), var(--neon-pink), transparent);
-    max-width: 800px;
-    margin: 0 auto 4rem;
-    border-radius: 1px;
-  }
-
-  /* RESPONSIVE */
-  @media (max-width: 768px) {
-    nav { padding: 1rem 1.5rem; }
-    .nav-links { gap: 1.5rem; font-size: 0.9rem; }
-    .hero-buttons { flex-direction: column; align-items: center; }
-    .keybinds-grid { grid-template-columns: 1fr; }
-    .showcase-grid { grid-template-columns: 1fr; }
-  }
-
-  /* LOADING ANIMATION */
-  .loading {
-    position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: var(--bg-primary);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 9999;
-    opacity: 1;
-    transition: opacity 0.5s ease;
-  }
-
-  .loading.hidden { opacity: 0; pointer-events: none; }
-
-  .loader {
-    width: 60px;
-    height: 60px;
-    border: 4px solid var(--glass);
-    border-top: 4px solid var(--neon-cyan);
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-  }
-
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% {
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#0d0d0d;
+  --paper:#f4efe6;
+  --surface:#ede8de;
+  --accent:#c8ff57;
+  --accent2:#57c8ff;
+  --dim:#888;
+  --border:1.5px solid var(--ink);
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);cursor:crosshair;overflow-x:hidden}
+
+/* NAV */
+header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.1rem 2.5rem;
+  border-bottom:var(--border);
+  position:sticky;top:0;
+  background:var(--paper);
+  z-index:99;
+}
+.h-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1rem;letter-spacing:-0.02em}
+.h-nav{display:flex;gap:2rem;list-style:none}
+.h-nav a{font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--dim);text-decoration:none;transition:color .15s}
+.h-nav a:hover{color:var(--ink)}
+.h-btn{
+  font-family:'JetBrains Mono',monospace;font-size:0.72rem;
+  background:var(--ink);color:var(--paper);
+  padding:.4rem 1rem;border-radius:3px;text-decoration:none;
+  transition:background .15s;
+}
+.h-btn:hover{background:#333}
+
+/* HERO */
+.hero{
+  display:grid;grid-template-columns:1fr 1.3fr;
+  min-height:92vh;border-bottom:var(--border);
+}
+.hero-left{
+  padding:4rem 2.5rem;border-right:var(--border);
+  display:flex;flex-direction:column;justify-content:space-between;
+}
+.hero-eyebrow{
+  font-family:'JetBrains Mono',monospace;font-size:0.68rem;
+  letter-spacing:.15em;color:var(--dim);text-transform:uppercase;
+}
+.hero-title{
+  font-family:'Syne',sans-serif;
+  font-size:clamp(4.5rem,9vw,10rem);
+  font-weight:800;line-height:.88;letter-spacing:-.05em;
+  margin:auto 0;
+}
+.hero-title .hl{
+  display:inline-block;
+  background:var(--accent);
+  padding:0 .06em;
+  transform:skewX(-3deg);
+}
+.hero-desc{
+  font-size:.95rem;color:var(--dim);line-height:1.7;max-width:340px;
+}
+.hero-right{
+  display:flex;flex-direction:column;
+}
+.hero-screen{
+  flex:1;background:#0d0f1a;
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;border-bottom:var(--border);position:relative;
+}
+.hero-screen img{width:100%;height:100%;object-fit:cover}
+.screen-ph{
+  color:#334;font-family:'JetBrains Mono',monospace;
+  font-size:.75rem;text-align:center;padding:2rem;
+}
+.screen-label{
+  position:absolute;bottom:1rem;left:1rem;
+  font-family:'JetBrains Mono',monospace;font-size:.65rem;
+  background:rgba(255,255,255,.08);color:rgba(255,255,255,.5);
+  padding:.25rem .6rem;border-radius:2px;letter-spacing:.08em;
+}
+.hero-pills{
+  display:flex;gap:0;
+}
+.pill{
+  flex:1;padding:1rem 1.25rem;border-right:var(--border);
+  font-family:'JetBrains Mono',monospace;font-size:.7rem;
+  text-transform:uppercase;letter-spacing:.08em;color:var(--dim);
+}
+.pill:last-child{border-right:none}
+.pill strong{display:block;font-size:1.6rem;color:var(--ink);font-family:'Syne',sans-serif;font-weight:800;letter-spacing:-.03em;margin-bottom:.1rem}
+
+/* TICKER */
+.ticker{overflow:hidden;padding:.65rem 0;background:var(--ink);color:var(--paper);border-bottom:var(--border)}
+.ticker-track{
+  display:flex;gap:2.5rem;white-space:nowrap;
+  animation:tick 10s linear infinite;
+  font-family:'JetBrains Mono',monospace;font-size:.75rem;letter-spacing:.05em;
+}
+@keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.td{color:var(--accent)}
+
+/* FEATURES */
+.features{border-bottom:var(--border)}
+.sec-head{
+  display:flex;align-items:baseline;justify-content:space-between;
+  padding:1.4rem 2.5rem;border-bottom:var(--border);
+}
+.sec-head h2{font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;letter-spacing:-.03em}
+.sec-head span{font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--dim)}
+
+.features-grid{display:grid;grid-template-columns:repeat(3,1fr)}
+.feat{
+  padding:2rem 2rem;border-right:var(--border);border-bottom:var(--border);
+  transition:background .15s;
+}
+.feat:nth-child(3n){border-right:none}
+.feat:nth-last-child(-n+3){border-bottom:none}
+.feat:hover{background:rgba(200,255,87,.12)}
+.feat-icon{
+  width:38px;height:38px;border-radius:6px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.1rem;margin-bottom:1.2rem;
+  background:var(--surface);border:var(--border);
+}
+.feat-title{font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;margin-bottom:.5rem}
+.feat-desc{font-size:.85rem;color:var(--dim);line-height:1.6}
+.feat-tag{
+  display:inline-block;margin-top:.8rem;
+  font-family:'JetBrains Mono',monospace;font-size:.62rem;
+  background:var(--accent);color:var(--ink);
+  padding:.2rem .55rem;border-radius:2px;letter-spacing:.06em;
+}
+.feat-tag.blue{background:var(--accent2)}
+
+/* DESKTOP */
+.desktop-section{border-bottom:var(--border)}
+.desktop-grid{display:grid;grid-template-columns:1fr 1fr}
+.desktop-main{
+  border-right:var(--border);
+  background:#080c14;
+  min-height:320px;
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;
+}
+.desktop-main img{width:100%;height:100%;object-fit:cover}
+.desktop-side{display:flex;flex-direction:column}
+.ds-item{
+  flex:1;padding:1.5rem 2rem;border-bottom:var(--border);
+  display:flex;flex-direction:column;justify-content:center;
+}
+.ds-item:last-child{border-bottom:none}
+.ds-label{font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--dim);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.4rem}
+.ds-val{font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700}
+.ds-sub{font-size:.8rem;color:var(--dim);margin-top:.2rem}
+
+/* TOOLS */
+.tools-section{border-bottom:var(--border)}
+.tools-list{display:flex;flex-direction:column}
+.tool-row{
+  display:grid;grid-template-columns:60px 1fr 1fr auto;
+  align-items:center;gap:0;
+  padding:1rem 2.5rem;
+  border-bottom:1px solid rgba(13,13,13,.1);
+  transition:background .15s;
+}
+.tool-row:hover{background:rgba(200,255,87,.1)}
+.tool-num{
+  font-family:'JetBrains Mono',monospace;font-size:.65rem;
+  color:var(--dim);font-weight:500;
+}
+.tool-name{font-weight:500;font-size:.95rem}
+.tool-cat{
+  font-family:'JetBrains Mono',monospace;font-size:.68rem;
+  color:var(--dim);text-transform:uppercase;letter-spacing:.07em;
+}
+.tool-link a{
+  font-family:'JetBrains Mono',monospace;font-size:.7rem;
+  color:var(--dim);text-decoration:none;
+}
+.tool-link a:hover{color:var(--ink)}
+
+/* INSTALL */
+.install-section{border-bottom:var(--border)}
+.install-grid{display:grid;grid-template-columns:1fr 1fr}
+.install-left{
+  padding:2.5rem;border-right:var(--border);
+}
+.install-left h3{
+  font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:800;
+  letter-spacing:-.02em;margin-bottom:1rem;
+}
+.install-left p{font-size:.88rem;color:var(--dim);line-height:1.7;margin-bottom:1.5rem}
+.steps{display:flex;flex-direction:column;gap:.5rem}
+.step{
+  display:flex;align-items:flex-start;gap:.75rem;
+  padding:.75rem 1rem;
+  background:var(--surface);border-radius:4px;
+}
+.step-n{
+  font-family:'JetBrains Mono',monospace;font-size:.65rem;
+  background:var(--ink);color:var(--paper);
+  width:20px;height:20px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;font-weight:500;
+}
+.step-text{font-size:.85rem;color:var(--dim);line-height:1.5}
+.step-text strong{color:var(--ink);font-weight:500}
+
+.install-right{padding:2.5rem}
+.install-right h3{
+  font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:800;
+  letter-spacing:-.02em;margin-bottom:1rem;
+}
+.terminal{
+  background:#0d0f1a;border-radius:6px;
+  overflow:hidden;border:var(--border);
+}
+.term-bar{
+  display:flex;align-items:center;gap:.5rem;
+  padding:.65rem 1rem;border-bottom:1px solid rgba(255,255,255,.06);
+}
+.term-dot{width:10px;height:10px;border-radius:50%}
+.term-title{
+  font-family:'JetBrains Mono',monospace;font-size:.65rem;
+  color:rgba(255,255,255,.25);margin-left:.5rem;
+}
+.term-body{padding:1.25rem 1.25rem;font-family:'JetBrains Mono',monospace;font-size:.78rem;line-height:1.9}
+.c-dim{color:rgba(255,255,255,.25)}
+.c-green{color:#a6e3a1}
+.c-blue{color:#89b4fa}
+.c-yellow{color:#f9e2af}
+.c-white{color:#cdd6f4}
+.c-accent{color:#c8ff57}
+
+.copy-btn{
+  display:block;width:100%;margin-top:1rem;
+  font-family:'JetBrains Mono',monospace;font-size:.72rem;
+  background:var(--accent);color:var(--ink);
+  border:none;padding:.65rem;border-radius:3px;
+  cursor:pointer;font-weight:500;letter-spacing:.05em;
+  transition:background .15s;
+}
+.copy-btn:hover{background:#b8ef47}
+
+/* FOOTER */
+footer{display:grid;grid-template-columns:1fr 1fr}
+.footer-left{padding:2.5rem;border-right:var(--border)}
+.footer-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:2.8rem;letter-spacing:-.05em;margin-bottom:.5rem}
+.footer-sub{font-size:.82rem;color:var(--dim);line-height:1.7}
+.footer-sub a{color:var(--ink);text-decoration:underline;text-underline-offset:3px}
+.footer-right{padding:2.5rem;display:flex;flex-direction:column;justify-content:space-between}
+.footer-links{display:flex;flex-direction:column;gap:.5rem}
+.footer-links a{
+  font-family:'JetBrains Mono',monospace;font-size:.8rem;
+  color:var(--dim);text-decoration:none;transition:color .15s;
+}
+.footer-links a:hover{color:var(--ink)}
+.footer-copy{font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--dim)}
+
+@media(max-width:768px){
+  .hero{grid-template-columns:1fr}
+  .hero-right{display:none}
+  .features-grid{grid-template-columns:1fr 1fr}
+  .feat:nth-child(2n){border-right:none}
+  .feat:nth-child(3n){border-right:var(--border)}
+  .desktop-grid{grid-template-columns:1fr}
+  .desktop-side{display:none}
+  .install-grid{grid-template-columns:1fr}
+  .install-left{border-right:none;border-bottom:var(--border)}
+  footer{grid-template-columns:1fr}
+  .footer-left{border-right:none;border-bottom:var(--border)}
+  .tool-row{grid-template-columns:40px 1fr auto}
+  .tool-cat{display:none}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="h-logo">vroomies 💧</div>
+  <ul class="h-nav">
+    <li><a href="#features">features</a></li>
+    <li><a href="#desktop">desktop</a></li>
+    <li><a href="#tools">tools</a></li>
+    <li><a href="#install">install</a></li>
+  </ul>
+  <a href="https://github.com/zzzyyyuuuuu/vroomies" class="h-btn">github ↗</a>
+</header>
+
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">hyprland · quickshell · kitty</div>
+    <div class="hero-title">vroom<br/><span class="hl">ies.</span></div>
+    <p class="hero-desc">Fast. Minimal. Opinionated. A dotfiles setup for people who live in the terminal and never touch the mouse.</p>
+  </div>
+  <div class="hero-right">
+    <div class="hero-screen">
+      <div class="screen-ph">🖥️ hero.png<br/><span style="opacity:.4">place your screenshot here</span></div>
+      <div class="screen-label">desktop preview</div>
+    </div>
+    <div class="hero-pills">
+      <div class="pill"><strong>3</strong>main tools</div>
+      <div class="pill"><strong>6</strong>keybinds</div>
+      <div class="pill"><strong>1</strong>script</div>
+    </div>
+  </div>
+</section>
+
+<div class="ticker">
+  <div class="ticker-track">
+    <span>hyprland<span class="td"> ✦ </span></span>
+    <span>quickshell<span class="td"> ✦ </span></span>
+    <span>kitty<span class="td"> ✦ </span></span>
+    <span>hyprland<span class="td"> ✦ </span></span>
+    <span>quickshell<span class="td"> ✦ </span></span>
+    <span>kitty<span class="td"> ✦ </span></span>
+    <span>hyprland<span class="td"> ✦ </span></span>
+    <span>quickshell<span class="td"> ✦ </span></span>
+    <span>kitty<span class="td"> ✦ </span></span>
+    <span>hyprland<span class="td"> ✦ </span></span>
+    <span>quickshell<span class="td"> ✦ </span></span>
+    <span>kitty<span class="td"> ✦ </span></span>
+  </div>
+</div>
+
+<section class="features" id="features">
+  <div class="sec-head">
+    <h2>what makes it different</h2>
+    <span>06 features</span>
+  </div>
+  <div class="features-grid">
+    <div class="feat">
+      <div class="feat-icon">⚡</div>
+      <div class="feat-title">Blazing fast</div>
+      <div class="feat-desc">GPU-accelerated compositor. Zero bloat, maximum speed.</div>
+      <span class="feat-tag">performance</span>
+    </div>
+    <div class="feat">
+      <div class="feat-icon">🎨</div>
+      <div class="feat-title">Custom animations</div>
+      <div class="feat-desc">Smooth window transitions and floating effects tuned to feel snappy.</div>
+      <span class="feat-tag">visual</span>
+    </div>
+    <div class="feat">
+      <div class="feat-icon">🖼️</div>
+      <div class="feat-title">Wallpaper switcher</div>
+      <div class="feat-desc">Built-in picker via Quickshell. Switch on the fly with a single keybind.</div>
+      <span class="feat-tag blue">quickshell</span>
+    </div>
+    <div class="feat">
+      <div class="feat-icon">🚀</div>
+      <div class="feat-title">App launcher</div>
+      <div class="feat-desc">Custom Quickshell launcher. Fast fuzzy search, keyboard-only workflow.</div>
+      <span class="feat-tag blue">quickshell</span>
+    </div>
+    <div class="feat">
+      <div class="feat-icon">📊</div>
+      <div class="feat-title">Custom bar</div>
+      <div class="feat-desc">Quickshell bar with workspace indicators and system stats. Clean UI.</div>
+      <span class="feat-tag">visual</span>
+    </div>
+    <div class="feat">
+      <div class="feat-icon">🔧</div>
+      <div class="feat-title">One-script install</div>
+      <div class="feat-desc">The install script sets up everything — packages, configs, symlinks.</div>
+      <span class="feat-tag">dev</span>
+    </div>
+  </div>
+</section>
+
+<section class="desktop-section" id="desktop">
+  <div class="sec-head">
+    <h2>desktop</h2>
+    <span>screenshot</span>
+  </div>
+  <div class="desktop-grid">
+    <div class="desktop-main">
+      <div class="screen-ph">🖥️ wallpaper-switcher.png<br/><span style="opacity:.3">place your screenshot here</span></div>
+    </div>
+    <div class="desktop-side">
+      <div class="ds-item">
+        <div class="ds-label">compositor</div>
+        <div class="ds-val">Hyprland</div>
+        <div class="ds-sub">Wayland, GPU-accelerated</div>
+      </div>
+      <div class="ds-item">
+        <div class="ds-label">bar</div>
+        <div class="ds-val">Quickshell</div>
+        <div class="ds-sub">Custom widgets + launcher</div>
+      </div>
+      <div class="ds-item">
+        <div class="ds-label">terminal</div>
+        <div class="ds-val">Kitty</div>
+        <div class="ds-sub">GPU-rendered, fast</div>
+      </div>
+      <div class="ds-item" style="border-bottom:none">
+        <div class="ds-label">colorscheme</div>
+        <div class="ds-val">Catppuccin Mocha</div>
+        <div class="ds-sub">Consistent across all apps</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="tools-section" id="tools">
+  <div class="sec-head">
+    <h2>tools</h2>
+    <span>primary stack</span>
+  </div>
+  <div class="tools-list">
+    <div class="tool-row">
+      <div class="tool-num">01</div>
+      <div class="tool-name">Hyprland</div>
+      <div class="tool-cat">compositor</div>
+      <div class="tool-link"><a href="https://github.com/hyprwm/Hyprland">github ↗</a></div>
+    </div>
+    <div class="tool-row">
+      <div class="tool-num">02</div>
+      <div class="tool-name">Quickshell</div>
+      <div class="tool-cat">bar · launcher</div>
+      <div class="tool-link"><a href="https://quickshell.org/">quickshell.org ↗</a></div>
+    </div>
+    <div class="tool-row" style="border-bottom:none">
+      <div class="tool-num">03</div>
+      <div class="tool-name">Kitty</div>
+      <div class="tool-cat">terminal</div>
+      <div class="tool-link"><a href="https://github.com/kovidgoyal/kitty">github ↗</a></div>
+    </div>
+  </div>
+</section>
+
+<section class="install-section" id="install">
+  <div class="sec-head">
+    <h2>install</h2>
+    <span>one script</span>
+  </div>
+  <div class="install-grid">
+    <div class="install-left">
+      <h3>before you start</h3>
+      <p>Ensure you are on an Arch-based distro with Hyprland support. The script handles dependencies.</p>
+      <div class="steps">
+        <div class="step">
+          <div class="step-n">1</div>
+          <div class="step-text"><strong>Clone the repo</strong> to your home directory</div>
+        </div>
+        <div class="step">
+          <div class="step-n">2</div>
+          <div class="step-text"><strong>Run the install script</strong> — links configs</div>
+        </div>
+        <div class="step">
+          <div class="step-n">3</div>
+          <div class="step-text"><strong>Log out</strong> and select Hyprland</div>
+        </div>
+        <div class="step">
+          <div class="step-n">4</div>
+          <div class="step-text"><strong>Done.</strong> Hit <code style="font-family:'JetBrains Mono',monospace;font-size:.8rem;background:var(--surface);padding:.1rem .3rem;border-radius:2px">SUPER + D</code></div>
+        </div>
+      </div>
+    </div>
+    <div class="install-right">
+      <h3>quick install</h3>
+      <div class="terminal">
+        <div class="term-bar">
+          <div class="term-dot" style="background:#f38ba8"></div>
+          <div class="term-dot" style="background:#f9e2af"></div>
+          <div class="term-dot" style="background:#a6e3a1"></div>
+          <div class="term-title">bash — vroomies install</div>
+        </div>
+        <div class="term-body">
+          <div><span class="c-dim"># clone the repo</span></div>
+          <div><span class="c-green">git</span> <span class="c-white">clone</span> <span class="c-blue">https://github.com/zzzyyyuuuuu/vroomies</span> <span class="c-yellow">~/.config/vroomies</span></div>
+          <div>&nbsp;</div>
+          <div><span class="c-dim"># navigate and run</span></div>
+          <div><span class="c-green">cd</span> <span class="c-yellow">~/.config/vroomies</span></div>
+          <div><span class="c-green">chmod</span> <span class="c-white">+x</span> <span class="c-yellow">install.sh</span></div>
+          <div><span class="c-accent">./install.sh</span></div>
+        </div>
+      </div>
+      <button class="copy-btn" onclick="
+        navigator.clipboard.writeText('git clone https://github.com/zzzyyyuuuuu/vroomies ~/.config/vroomies && cd ~/.config/vroomies && chmod +x install.sh && ./install.sh');
+        this.textContent='copied!';
+        setTimeout(()=>this.textContent='copy install command',1500);
+      ">copy install command</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-left">
+    <div class="footer-logo">vroomies.</div>
+    <p class="footer-sub">
+      made with 💧 by <a href="https://github.com/zzzyyyuuuuu">maxchennn</a>
+    </p>
+  </div>
+  <div class="footer-right">
+    <div class="footer-links">
+      <a href="https://github.com/maxchennn/vroomies">github ↗</a>
+      <a href="#features">features</a>
+      <a href="#desktop">desktop</a>
+      <a href="#tools">tools</a>
+      <a href="#install">install</a>
+    </div>
+    <div class="footer-copy">💧 vroomies — hyprland dotfiles</div>
+  </div>
+</footer>
+
+</body>
+</html>
