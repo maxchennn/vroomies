@@ -7,6 +7,7 @@
     --border: rgba(255, 255, 255, 0.05);
     --shadow: rgba(0, 0, 0, 0.4);
     --btn-bg: #1c1c24;
+    --code-bg: #000000;
 }
 
 body.light-mode {
@@ -18,6 +19,7 @@ body.light-mode {
     --border: rgba(0, 0, 0, 0.05);
     --shadow: rgba(0, 0, 0, 0.1);
     --btn-bg: #e5e5e7;
+    --code-bg: #f0f0f2;
 }
 
 * {
@@ -78,6 +80,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    color: var(--text);
 }
 
 .mode-icon::before { content: '🌙'; }
@@ -85,7 +88,7 @@ body.light-mode .mode-icon::before { content: '☀️'; }
 
 .hero-showcase {
     text-align: center;
-    margin: 40px 0 80px;
+    margin: 40px 0 60px;
 }
 
 .main-preview {
@@ -106,6 +109,38 @@ body.light-mode .mode-icon::before { content: '☀️'; }
     background: linear-gradient(90deg, var(--text), var(--accent));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+}
+
+.install-section {
+    margin-bottom: 80px;
+}
+
+.install-section h2 {
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+}
+
+.code-block {
+    background: var(--code-bg);
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9rem;
+}
+
+.copy-btn {
+    background: var(--accent);
+    color: #000;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 0.8rem;
 }
 
 .gallery-grid {
