@@ -10,11 +10,11 @@
 <body>
 
     <nav class="navbar container">
-        <div class="nav-brand slide-down">
+        <div class="nav-brand">
             <div class="brand-dot"></div>
             VROOMIES
         </div>
-        <div class="nav-controls slide-down">
+        <div class="nav-controls">
             <button id="theme-toggle" class="theme-btn">
                 <span class="mode-icon"></span>
             </button>
@@ -39,6 +39,24 @@
             <div class="hero-text">
                 <h1>The <span class="gradient-text">Vroomies</span> Experience</h1>
                 <p>A minimalist desktop environment focused on speed and aesthetics.</p>
+            </div>
+        </section>
+
+        <section class="features-grid reveal">
+            <div class="feature-card">
+                <div class="feature-icon">🚀</div>
+                <h3>Hyprland Core</h3>
+                <p>Native Wayland performance with smooth tiling and dynamic animations.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🎨</div>
+                <h3>Matugen Powered</h3>
+                <p>Automated color schemes generated directly from your wallpapers.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3>Pure-Flow</h3>
+                <p>Clean code and fast startup for a distraction-free ricing environment.</p>
             </div>
         </section>
 
@@ -92,7 +110,6 @@
         function switchOS(os) {
             const cmd = document.getElementById('install-cmd');
             const note = document.getElementById('os-note');
-
             if (os === 'arch') {
                 cmd.innerText = "curl -sSL https://raw.githubusercontent.com/maxchennn/vroomies/main/install.sh | bash";
                 note.innerText = "Preparing setup for Arch Linux (Yay required).";
