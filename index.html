@@ -1,314 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>vroomies</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=JetBrains+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
-<style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --ink:#0d0d0d;
-  --paper:#f4efe6;
-  --surface:#ede8de;
-  --accent:#c8ff57;
-  --accent2:#57c8ff;
-  --dim:#888;
-  --border:1.5px solid var(--ink);
-}
-html{scroll-behavior:smooth}
-body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);cursor:crosshair;overflow-x:hidden}
-
-/* NAV */
-header{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:1.1rem 2.5rem;
-  border-bottom:var(--border);
-  position:sticky;top:0;
-  background:var(--paper);
-  z-index:99;
-}
-.h-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1rem;letter-spacing:-0.02em}
-.h-nav{display:flex;gap:2rem;list-style:none}
-.h-nav a{font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--dim);text-decoration:none;transition:color .15s}
-.h-nav a:hover{color:var(--ink)}
-.h-btn{
-  font-family:'JetBrains Mono',monospace;font-size:0.72rem;
-  background:var(--ink);color:var(--paper);
-  padding:.4rem 1rem;border-radius:3px;text-decoration:none;
-  transition:background .15s;
-}
-.h-btn:hover{background:#333}
-
-/* HERO */
-.hero{
-  display:grid;grid-template-columns:1fr 1.3fr;
-  min-height:92vh;border-bottom:var(--border);
-}
-.hero-left{
-  padding:4rem 2.5rem;border-right:var(--border);
-  display:flex;flex-direction:column;justify-content:space-between;
-}
-.hero-eyebrow{
-  font-family:'JetBrains Mono',monospace;font-size:0.68rem;
-  letter-spacing:.15em;color:var(--dim);text-transform:uppercase;
-}
-.hero-title{
-  font-family:'Syne',sans-serif;
-  font-size:clamp(4.5rem,9vw,10rem);
-  font-weight:800;line-height:.88;letter-spacing:-.05em;
-  margin:auto 0;
-}
-.hero-title .hl{
-  display:inline-block;
-  background:var(--accent);
-  padding:0 .06em;
-  transform:skewX(-3deg);
-}
-.hero-desc{
-  font-size:.95rem;color:var(--dim);line-height:1.7;max-width:340px;
-}
-.hero-right{
-  display:flex;flex-direction:column;
-}
-.hero-screen{
-  flex:1;background:#0d0f1a;
-  display:flex;align-items:center;justify-content:center;
-  overflow:hidden;border-bottom:var(--border);position:relative;
-}
-.hero-screen img{width:100%;height:100%;object-fit:cover}
-.screen-label{
-  position:absolute;bottom:1rem;left:1rem;
-  font-family:'JetBrains Mono',monospace;font-size:.65rem;
-  background:rgba(255,255,255,.08);color:rgba(255,255,255,.5);
-  padding:.25rem .6rem;border-radius:2px;letter-spacing:.08em;
-}
-
-/* TICKER */
-.ticker{overflow:hidden;padding:.65rem 0;background:var(--ink);color:var(--paper);border-bottom:var(--border)}
-.ticker-track{
-  display:flex;gap:2.5rem;white-space:nowrap;
-  animation:tick 10s linear infinite;
-  font-family:'JetBrains Mono',monospace;font-size:.75rem;letter-spacing:.05em;
-}
-@keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-.td{color:var(--accent)}
-
-/* GALLERY GRID */
-.gallery-section{border-bottom:var(--border)}
-.gallery-grid{
-  display:grid;
-  grid-template-columns: repeat(2, 1fr);
-}
-.gallery-item{
-  border-right:var(--border);
-  border-bottom:var(--border);
-  aspect-ratio: 16/9;
-  overflow:hidden;
-  background:#0d0f1a;
-  position: relative;
-}
-.gallery-item:nth-child(even){border-right:none}
-.gallery-item img{
-  width:100%;height:100%;object-fit:cover;
-  filter:grayscale(100%);transition:filter 0.4s ease;
-}
-.gallery-item:hover img{filter:grayscale(0%)}
-.gallery-label {
-  position: absolute; bottom: 10px; left: 10px;
-  font-family: 'JetBrains Mono', monospace; font-size: 0.6rem;
-  background: rgba(0,0,0,0.5); color: #fff; padding: 2px 5px;
-}
-
-/* FEATURES */
-.features{border-bottom:var(--border)}
-.sec-head{
-  display:flex;align-items:baseline;justify-content:space-between;
-  padding:1.4rem 2.5rem;border-bottom:var(--border);
-}
-.sec-head h2{font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;letter-spacing:-.03em}
-.sec-head span{font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--dim)}
-
-.features-grid{display:grid;grid-template-columns:repeat(3,1fr)}
-.feat{
-  padding:2rem 2rem;border-right:var(--border);border-bottom:var(--border);
-  transition:background .15s;
-}
-.feat:nth-child(3n){border-right:none}
-.feat:nth-last-child(-n+3){border-bottom:none}
-.feat:hover{background:rgba(200,255,87,.12)}
-.feat-icon{
-  width:38px;height:38px;border-radius:6px;
-  display:flex;align-items:center;justify-content:center;
-  font-size:1.1rem;margin-bottom:1.2rem;
-  background:var(--surface);border:var(--border);
-}
-.feat-title{font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;margin-bottom:.5rem}
-.feat-desc{font-size:.85rem;color:var(--dim);line-height:1.6}
-.feat-tag{
-  display:inline-block;margin-top:.8rem;
-  font-family:'JetBrains Mono',monospace;font-size:.62rem;
-  background:var(--accent);color:var(--ink);
-  padding:.2rem .55rem;border-radius:2px;letter-spacing:.06em;
-}
-
-/* INSTALL */
-.install-section{border-bottom:var(--border)}
-.install-grid{display:grid;grid-template-columns:1fr 1fr}
-.install-left{padding:2.5rem;border-right:var(--border)}
-.terminal{
-  background:#0d0f1a;border-radius:6px;
-  overflow:hidden;border:var(--border);
-}
-.term-bar{
-  display:flex;align-items:center;gap:.5rem;
-  padding:.65rem 1rem;border-bottom:1px solid rgba(255,255,255,.06);
-}
-.term-dot{width:10px;height:10px;border-radius:50%}
-.term-body{padding:1.25rem 1.25rem;font-family:'JetBrains Mono',monospace;font-size:0.75rem;line-height:1.8}
-.c-green{color:#a6e3a1}
-.c-blue{color:#89b4fa}
-.c-yellow{color:#f9e2af}
-.c-accent{color:#c8ff57}
-
-.copy-btn{
-  display:block;width:100%;margin-top:1rem;
-  font-family:'JetBrains Mono',monospace;font-size:.72rem;
-  background:var(--accent);color:var(--ink);
-  border:none;padding:.65rem;border-radius:3px;
-  cursor:pointer;font-weight:500;
-}
-
-/* FOOTER */
-footer{display:grid;grid-template-columns:1fr 1fr}
-.footer-left{padding:2.5rem;border-right:var(--border)}
-.footer-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:2.8rem;letter-spacing:-.05em}
-
-@media(max-width:768px){
-  .hero, .gallery-grid, .features-grid, .install-grid, footer{grid-template-columns:1fr}
-  .hero-right, .gallery-item:nth-child(n){border-right:none}
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vroomies | Custom Desktop Environment</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
 </head>
 <body>
 
-<header>
-  <div class="h-logo">vroomies 💧</div>
-  <ul class="h-nav">
-    <li><a href="#gallery">gallery</a></li>
-    <li><a href="#features">features</a></li>
-    <li><a href="#install">install</a></li>
-  </ul>
-  <a href="https://github.com/maxchennn/vroomies" class="h-btn">github ↗</a>
-</header>
-
-<section class="hero">
-  <div class="hero-left">
-    <div class="hero-eyebrow">hyprland · quickshell · kitty</div>
-    <div class="hero-title">vroom<br/><span class="hl">ies.</span></div>
-    <p class="hero-desc">Fast. Minimal. Opinionated. A dotfiles setup for people who live in the terminal and never touch the mouse.</p>
-  </div>
-  <div class="hero-right">
-    <div class="hero-screen">
-      <img src="gallery/Hero.png" alt="Hero Preview"/>
-      <div class="screen-label">main desktop</div>
-    </div>
-  </div>
-</section>
-
-<div class="ticker">
-  <div class="ticker-track">
-    <span>hyprland<span class="td"> ✦ </span></span>
-    <span>quickshell<span class="td"> ✦ </span></span>
-    <span>kitty<span class="td"> ✦ </span></span>
-    <span>hyprland<span class="td"> ✦ </span></span>
-    <span>quickshell<span class="td"> ✦ </span></span>
-    <span>kitty<span class="td"> ✦ </span></span>
-  </div>
-</div>
-
-<section class="gallery-section" id="gallery">
-  <div class="sec-head">
-    <h2>visuals</h2>
-    <span>03 screenshots</span>
-  </div>
-  <div class="gallery-grid">
-    <div class="gallery-item">
-      <img src="gallery/Hero.png" alt="Hero View"/>
-      <div class="gallery-label">hero.png</div>
-    </div>
-    <div class="gallery-item">
-      <img src="gallery/launcher.png" alt="Launcher View"/>
-      <div class="gallery-label">launcher.png</div>
-    </div>
-    <div class="gallery-item">
-      <img src="gallery/wallpaper-switcher.png" alt="Wallpaper Switcher"/>
-      <div class="gallery-label">wallpaper-switcher.png</div>
-    </div>
-    <div class="gallery-item" style="display: flex; align-items: center; justify-content: center; background: var(--surface);">
-       <span style="font-family:'JetBrains Mono'; font-size: 0.7rem; color: var(--dim);">more coming soon...</span>
-    </div>
-  </div>
-</section>
-
-<section class="features" id="features">
-  <div class="sec-head">
-    <h2>what makes it different</h2>
-    <span>06 features</span>
-  </div>
-  <div class="features-grid">
-    <div class="feat">
-      <div class="feat-icon">⚡</div>
-      <div class="feat-title">Blazing fast</div>
-      <div class="feat-desc">GPU-accelerated compositor. Zero bloat, maximum speed.</div>
-      <span class="feat-tag">performance</span>
-    </div>
-    <div class="feat">
-      <div class="feat-icon">🖼️</div>
-      <div class="feat-title">Wallpaper switcher</div>
-      <div class="feat-desc">Built-in picker via Quickshell. Switch on the fly.</div>
-      <span class="feat-tag">quickshell</span>
-    </div>
-    <div class="feat">
-      <div class="feat-icon">🔧</div>
-      <div class="feat-title">One-script install</div>
-      <div class="feat-desc">The install script sets up everything automatically.</div>
-      <span class="feat-tag">dev</span>
-    </div>
-  </div>
-</section>
-
-<section class="install-section" id="install">
-  <div class="sec-head">
-    <h2>install</h2>
-    <span>one script</span>
-  </div>
-  <div class="install-grid">
-    <div class="install-left">
-      <p>Ensure you are on an Arch-based distro with Hyprland support.</p>
-      <div class="terminal">
-        <div class="term-bar">
-          <div class="term-dot" style="background:#f38ba8"></div>
-          <div class="term-dot" style="background:#f9e2af"></div>
-          <div class="term-dot" style="background:#a6e3a1"></div>
+    <nav class="navbar container">
+        <div class="nav-brand">
+            <div class="brand-dot"></div>
+            VROOMIES
         </div>
-        <div class="term-body">
-          <div><span class="c-green">git</span> <span class="c-blue">clone</span> <span class="c-yellow">https://github.com/maxchennn/vroomies</span></div>
-          <div><span class="c-green">cd</span> <span class="c-yellow">vroomies</span></div>
-          <div><span class="c-accent">./install.sh</span></div>
+        <div class="nav-links">
+            <a href="https://github.com/maxchennn" class="btn-github" target="_blank">
+                maxchennn @ GitHub
+            </a>
         </div>
-      </div>
-      <button class="copy-btn" onclick="navigator.clipboard.writeText('git clone https://github.com/maxchennn/vroomies && cd vroomies && ./install.sh')">copy install command</button>
-    </div>
-  </div>
-</section>
+    </nav>
 
-<footer>
-  <div class="footer-left">
-    <div class="footer-logo">vroomies.</div>
-    <p>made with 💧 by <a href="https://github.com/maxchennn" style="color:inherit">maxchennn</a></p>
-  </div>
-</footer>
+    <main class="container">
+        <section class="hero">
+            <h1>The <span class="gradient-text">Vroomies</span> Experience</h1>
+            <p class="hero-desc">
+                Minimalist, dynamic color transitions, and fully open-source desktop environment. 
+                A perfect harmony of aesthetics and performance developed by maxchennn.
+            </p>
+
+            <div class="tech-tags">
+                <span class="tag">#Hyprland</span>
+                <span class="tag">#Matugen</span>
+                <span class="tag">#Quickshell</span>
+                <span class="tag">#Lua</span>
+                <span class="tag">#Bash</span>
+                <span class="tag">#QML</span>
+            </div>
+
+            <div class="preview-window">
+                <div class="code-snippet">
+                    <p><span class="keyword">function</span> <span class="string">apply_vroomies_colors</span>() {</p>
+                    <p>&nbsp;&nbsp;matugen -i <span class="string">"$wallpaper"</span></p>
+                    <p>&nbsp;&nbsp;echo <span class="string">"Vroomies colors updated by maxchennn!"</span></p>
+                    <p>}</p>
+                    <br>
+                    <p>// Vroomies v1.2.0 active</p>
+                    <p>// Developer: maxchennn</p>
+                    <p>// System: HP Victus | RTX 4050</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="features-grid">
+            <div class="feature-card">
+                <h3>Dynamic Colors</h3>
+                <p>Vroomies instantly updates all system colors based on your wallpaper via Matugen integration.</p>
+            </div>
+
+            <div class="feature-card">
+                <h3>Pure-Walls</h3>
+                <p>Bring your desktop to life with a custom wallpaper archive curated by maxchennn.</p>
+            </div>
+
+            <div class="feature-card">
+                <h3>Fast & Modern</h3>
+                <p>Vroomies offers a structure focused entirely on speed and simplicity, free from unnecessary bloat.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="container">
+        <p>&copy; 2026 Vroomies Project. Developed by maxchennn.</p>
+    </footer>
 
 </body>
 </html>
