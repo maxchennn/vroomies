@@ -44,10 +44,22 @@
 
         <section class="install-section reveal">
             <h2>Quick Installation</h2>
+            
+            <div class="distro-selector">
+                <span class="selector-label">Distro:</span>
+                <div class="select-box">
+                    <select id="os-select" onchange="switchOS(this.value)">
+                        <option value="arch">Arch Linux</option>
+                        <option value="fedora">Fedora</option>
+                    </select>
+                </div>
+            </div>
+
             <div class="code-block">
                 <code id="install-cmd">curl -sSL https://raw.githubusercontent.com/maxchennn/vroomies/main/install.sh | bash</code>
                 <button class="copy-btn" onclick="copyCode()">Copy</button>
             </div>
+            <p id="os-note" class="install-note">Preparing setup for Arch Linux (Yay required).</p>
         </section>
     </main>
 
@@ -76,6 +88,19 @@
             body.classList.toggle('light-mode');
             localStorage.setItem('theme', body.classList.contains('light-mode') ? 'light-mode' : '');
         });
+
+        function switchOS(os) {
+            const cmd = document.getElementById('install-cmd');
+            const note = document.getElementById('os-note');
+
+            if (os === 'arch') {
+                cmd.innerText = "curl -sSL https://raw.githubusercontent.com/maxchennn/vroomies/main/install.sh | bash";
+                note.innerText = "Preparing setup for Arch Linux (Yay required).";
+            } else {
+                cmd.innerText = "curl -sSL https://raw.githubusercontent.com/maxchennn/vroomies/main/ignite.sh | bash";
+                note.innerText = "Preparing setup for Fedora (DNF/COPR required).";
+            }
+        }
 
         function copyCode() {
             const code = document.getElementById('install-cmd').innerText;
