@@ -118,7 +118,35 @@ body.light-mode .mode-icon::before { content: '☀️'; }
 }
 
 .install-section { margin: 60px 0 100px; }
-.install-section h2 { font-size: 1.2rem; margin-bottom: 15px; opacity: 0.9; }
+.install-section h2 { font-size: 1.2rem; margin-bottom: 20px; opacity: 0.9; }
+
+.distro-selector {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.selector-label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-dim);
+}
+
+.select-box select {
+    background: var(--surface);
+    color: var(--text);
+    border: 1px solid var(--border);
+    padding: 8px 16px;
+    border-radius: 12px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 600;
+    outline: none;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.select-box select:hover { border-color: var(--accent); }
 
 .code-block {
     background: var(--surface);
@@ -144,6 +172,13 @@ body.light-mode .mode-icon::before { content: '☀️'; }
 }
 
 .copy-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0, 242, 255, 0.3); }
+
+.install-note {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    margin-top: 12px;
+    font-family: 'JetBrains Mono', monospace;
+}
 
 .reveal { opacity: 0; transform: translateY(20px); transition: 0.8s cubic-bezier(0.2, 0.8, 0.2, 1); }
 .reveal.active { opacity: 1; transform: translateY(0); }
