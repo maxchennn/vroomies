@@ -7,7 +7,7 @@
     --border: rgba(255, 255, 255, 0.05);
     --shadow: rgba(0, 0, 0, 0.4);
     --btn-bg: #1c1c24;
-    --code-bg: #000000;
+    --code-bg: #050505;
 }
 
 body.light-mode {
@@ -32,7 +32,7 @@ body {
     font-family: 'Plus Jakarta Sans', sans-serif;
     background-color: var(--bg);
     color: var(--text);
-    transition: background 0.4s ease, color 0.4s ease;
+    transition: background 0.4s ease;
     overflow-x: hidden;
 }
 
@@ -49,15 +49,8 @@ body {
     padding: 40px 0;
 }
 
-.nav-controls {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
 .nav-brand {
     font-weight: 800;
-    font-size: 1.1rem;
     display: flex;
     align-items: center;
     gap: 8px;
@@ -70,6 +63,12 @@ body {
     border-radius: 2px;
 }
 
+.nav-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
 .theme-btn {
     background: var(--btn-bg);
     border: 1px solid var(--border);
@@ -77,9 +76,6 @@ body {
     height: 38px;
     border-radius: 10px;
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     color: var(--text);
 }
 
@@ -88,7 +84,7 @@ body.light-mode .mode-icon::before { content: '☀️'; }
 
 .hero-showcase {
     text-align: center;
-    margin: 40px 0 60px;
+    margin-bottom: 60px;
 }
 
 .main-preview {
@@ -96,13 +92,7 @@ body.light-mode .mode-icon::before { content: '☀️'; }
     border-radius: 20px;
     box-shadow: 0 30px 60px var(--shadow);
     border: 1px solid var(--border);
-    margin-bottom: 40px;
-}
-
-.hero-text h1 {
-    font-size: clamp(2rem, 5vw, 3.5rem);
-    font-weight: 800;
-    letter-spacing: -2px;
+    margin-bottom: 30px;
 }
 
 .gradient-text {
@@ -117,36 +107,37 @@ body.light-mode .mode-icon::before { content: '☀️'; }
 
 .install-section h2 {
     margin-bottom: 20px;
-    font-size: 1.5rem;
+    font-size: 1.4rem;
 }
 
 .code-block {
     background: var(--code-bg);
-    padding: 20px;
+    padding: 18px 24px;
     border-radius: 12px;
     border: 1px solid var(--border);
     display: flex;
     justify-content: space-between;
     align-items: center;
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
+    overflow-x: auto;
 }
 
 .copy-btn {
     background: var(--accent);
     color: #000;
     border: none;
-    padding: 6px 12px;
+    padding: 6px 14px;
     border-radius: 6px;
     font-weight: 700;
     cursor: pointer;
-    font-size: 0.8rem;
+    margin-left: 15px;
 }
 
 .gallery-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 32px;
+    gap: 30px;
     margin-bottom: 80px;
 }
 
@@ -159,23 +150,19 @@ body.light-mode .mode-icon::before { content: '☀️'; }
 
 .gallery-item img {
     width: 100%;
-    height: 240px;
+    height: 220px;
     object-fit: cover;
-    transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-.gallery-item:hover img { transform: scale(1.05); }
-
-.item-info { padding: 24px; }
+.item-info { padding: 20px; }
 
 .btn-github {
     text-decoration: none;
     color: var(--text);
-    padding: 10px 20px;
+    padding: 8px 16px;
     border: 1px solid var(--border);
-    border-radius: 10px;
+    border-radius: 8px;
     font-weight: 600;
-    font-size: 0.9rem;
 }
 
 .slide-down {
@@ -189,7 +176,7 @@ body.light-mode .mode-icon::before { content: '☀️'; }
 
 .reveal {
     opacity: 0;
-    transform: translateY(40px);
+    transform: translateY(30px);
     transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
@@ -202,5 +189,4 @@ footer {
     text-align: center;
     padding: 60px 0;
     color: var(--text-dim);
-    font-size: 0.85rem;
 }
