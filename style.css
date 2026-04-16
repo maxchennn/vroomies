@@ -68,11 +68,9 @@ body.light-mode .mode-icon::before { content: '☀️'; }
 .distro-selector { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
 .selector-label { font-size: 0.9rem; font-weight: 600; color: var(--text-dim); }
 .select-box select { background: var(--surface); color: var(--text); border: 1px solid var(--border); padding: 8px 16px; border-radius: 12px; font-family: inherit; font-weight: 600; outline: none; cursor: pointer; }
-.select-box select:hover { border-color: var(--accent); }
 
 .code-block { background: var(--surface); padding: 16px 24px; border-radius: 16px; border: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; }
 .copy-btn { background: var(--accent); color: #000; border: none; padding: 8px 16px; border-radius: 10px; font-weight: 800; cursor: pointer; transition: 0.3s; }
-.copy-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0, 242, 255, 0.3); }
 .install-note { font-size: 0.75rem; color: var(--text-dim); margin-top: 12px; font-family: 'JetBrains Mono', monospace; }
 
 .reveal { opacity: 0; transform: translateY(20px); transition: 0.8s ease; }
