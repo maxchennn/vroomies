@@ -77,7 +77,7 @@
                 <code id="install-cmd">curl -sSL https://raw.githubusercontent.com/maxchennn/vroomies/main/install.sh | bash</code>
                 <button class="copy-btn" onclick="copyCode()">Copy</button>
             </div>
-            <p id="os-note" class="install-note">Preparing setup for Arch Linux (Yay required).</p>
+            <p id="os-note" class="install-note">Preparing setup for Arch Linux...</p>
         </section>
     </main>
 
@@ -112,10 +112,10 @@
             const note = document.getElementById('os-note');
             if (os === 'arch') {
                 cmd.innerText = "curl -sSL https://raw.githubusercontent.com/maxchennn/vroomies/main/install.sh | bash";
-                note.innerText = "Preparing setup for Arch Linux (Yay required).";
+                note.innerText = "Preparing setup for Arch Linux...";
             } else {
                 cmd.innerText = "curl -sSL https://raw.githubusercontent.com/maxchennn/vroomies/main/ignite.sh | bash";
-                note.innerText = "Preparing setup for Fedora (DNF/COPR required).";
+                note.innerText = "Preparing setup for Fedora...";
             }
         }
 
