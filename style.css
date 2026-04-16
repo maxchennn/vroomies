@@ -1,5 +1,4 @@
 :root {
-    /* DARK MODE (Default) */
     --bg: #0d0d11;
     --surface: #16161e;
     --text: #eeeeee;
@@ -7,19 +6,18 @@
     --accent: #4cc9f0;
     --border: rgba(255, 255, 255, 0.05);
     --shadow: rgba(0, 0, 0, 0.4);
+    --btn-bg: #1c1c24;
 }
 
-@media (prefers-color-scheme: light) {
-    :root {
-        /* LIGHT MODE */
-        --bg: #f5f5f7;
-        --surface: #ffffff;
-        --text: #1d1d1f;
-        --text-dim: #6e6e73;
-        --accent: #0071e3;
-        --border: rgba(0, 0, 0, 0.05);
-        --shadow: rgba(0, 0, 0, 0.1);
-    }
+body.light-mode {
+    --bg: #f5f5f7;
+    --surface: #ffffff;
+    --text: #1d1d1f;
+    --text-dim: #6e6e73;
+    --accent: #0071e3;
+    --border: rgba(0, 0, 0, 0.05);
+    --shadow: rgba(0, 0, 0, 0.1);
+    --btn-bg: #e5e5e7;
 }
 
 * {
@@ -32,25 +30,32 @@ body {
     font-family: 'Plus Jakarta Sans', sans-serif;
     background-color: var(--bg);
     color: var(--text);
-    transition: background 0.3s ease;
+    transition: background 0.4s ease, color 0.4s ease;
+    overflow-x: hidden;
 }
 
 .container {
     max-width: 1000px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 24px;
 }
 
-/* Navbar */
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 40px 20px;
+    padding: 40px 0;
+}
+
+.nav-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
 
 .nav-brand {
     font-weight: 800;
+    font-size: 1.1rem;
     display: flex;
     align-items: center;
     gap: 8px;
@@ -63,24 +68,38 @@ body {
     border-radius: 2px;
 }
 
-/* Hero Showcase */
+.theme-btn {
+    background: var(--btn-bg);
+    border: 1px solid var(--border);
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mode-icon::before { content: '🌙'; }
+body.light-mode .mode-icon::before { content: '☀️'; }
+
 .hero-showcase {
     text-align: center;
-    margin-bottom: 80px;
+    margin: 40px 0 80px;
 }
 
 .main-preview {
     width: 100%;
-    border-radius: 16px;
-    box-shadow: 0 20px 40px var(--shadow);
-    margin-bottom: 30px;
+    border-radius: 20px;
+    box-shadow: 0 30px 60px var(--shadow);
     border: 1px solid var(--border);
+    margin-bottom: 40px;
 }
 
 .hero-text h1 {
-    font-size: 3rem;
+    font-size: clamp(2rem, 5vw, 3.5rem);
     font-weight: 800;
-    margin-bottom: 10px;
+    letter-spacing: -2px;
 }
 
 .gradient-text {
@@ -89,65 +108,64 @@ body {
     -webkit-text-fill-color: transparent;
 }
 
-/* Gallery Grid */
 .gallery-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 30px;
-    margin-bottom: 100px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 32px;
+    margin-bottom: 80px;
 }
 
 .gallery-item {
     background: var(--surface);
-    border-radius: 16px;
+    border-radius: 20px;
     overflow: hidden;
     border: 1px solid var(--border);
-    transition: transform 0.3s ease;
-}
-
-.gallery-item:hover {
-    transform: translateY(-5px);
 }
 
 .gallery-item img {
     width: 100%;
-    height: 250px;
+    height: 240px;
     object-fit: cover;
-    border-bottom: 1px solid var(--border);
+    transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-.item-info {
-    padding: 20px;
-}
+.gallery-item:hover img { transform: scale(1.05); }
 
-.item-info h3 {
-    font-size: 1.1rem;
-    margin-bottom: 5px;
-}
-
-.item-info p {
-    color: var(--text-dim);
-    font-size: 0.9rem;
-}
+.item-info { padding: 24px; }
 
 .btn-github {
     text-decoration: none;
     color: var(--text);
-    padding: 8px 16px;
+    padding: 10px 20px;
     border: 1px solid var(--border);
-    border-radius: 8px;
+    border-radius: 10px;
     font-weight: 600;
     font-size: 0.9rem;
 }
 
-footer {
-    text-align: center;
-    padding: 40px 0;
-    color: var(--text-dim);
-    font-size: 0.8rem;
+.slide-down {
+    animation: slideDown 0.8s ease forwards;
 }
 
-@media (max-width: 768px) {
-    .gallery-grid { grid-template-columns: 1fr; }
-    .hero-text h1 { font-size: 2rem; }
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+footer {
+    text-align: center;
+    padding: 60px 0;
+    color: var(--text-dim);
+    font-size: 0.85rem;
 }
