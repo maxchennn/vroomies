@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
 </head>
-<body class="fade-in">
+<body>
 
     <nav class="navbar container">
         <div class="nav-brand slide-down">
@@ -34,8 +34,8 @@
         <section class="install-section reveal">
             <h2>Quick Installation</h2>
             <div class="code-block">
-                <code>curl -sSL https://raw.githubusercontent.com/maxchennn/vroomies/main/install.sh | bash</code>
-                <button class="copy-btn">Copy</button>
+                <code id="install-cmd">curl -sSL https://raw.githubusercontent.com/maxchennn/vroomies/main/install.sh | bash</code>
+                <button class="copy-btn" onclick="copyCode()">Copy</button>
             </div>
         </section>
 
@@ -74,6 +74,12 @@
             body.classList.toggle('light-mode');
             localStorage.setItem('theme', body.classList.contains('light-mode') ? 'light-mode' : '');
         });
+
+        function copyCode() {
+            const code = document.getElementById('install-cmd').innerText;
+            navigator.clipboard.writeText(code);
+            alert("Copied to clipboard!");
+        }
 
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
