@@ -48,4 +48,6 @@ ShellRoot {
     Loader { source: Quickshell.env("HOME") + "/.config/quickshell/Dashboard/Dashboard.qml" }
     Loader { source: "Bar/bar.qml" }
     Loader { source: "logout/logout.qml" }
+    Loader { source : "Clock.qml" }
+    Loader { source : "linux.qml" }
 }
