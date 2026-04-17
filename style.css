@@ -101,9 +101,15 @@ body.light-mode .mode-icon::before { content: '☀️'; }
 .code-block { background: var(--surface); padding: 16px 24px; border-radius: 0px; border: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; }
 .copy-btn { background: var(--accent); color: #000; border: none; padding: 8px 16px; border-radius: 0px; font-weight: 800; cursor: pointer; transition: 0.3s; }
 .copy-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0, 242, 255, 0.3); }
-.install-note { font-size: 0.75rem; color: var(--text-dim); margin-top: 12px; font-family: 'JetBrains Mono', monospace; line-height: 1.6; }
-.install-note code { background: rgba(0, 242, 255, 0.1); padding: 2px 5px; color: var(--accent); }
 
+.install-note { margin-top: 25px; text-align: left; }
+.note-title { font-size: 0.85rem; color: var(--text-dim); margin-bottom: 10px; font-weight: 600; }
+.mini-code-block { background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border); padding: 12px 18px; display: flex; justify-content: space-between; align-items: center; gap: 15px; }
+.mini-code-block code { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--accent); word-break: break-all; line-height: 1.4; }
+.mini-copy { background: transparent; border: 1px solid var(--accent); color: var(--accent); padding: 4px 10px; font-size: 0.7rem; font-weight: 700; cursor: pointer; transition: 0.2s; white-space: nowrap; }
+.mini-copy:hover { background: var(--accent); color: #000; }
+
+body.light-mode .mini-code-block { background: rgba(0, 0, 0, 0.03); }
 .reveal { opacity: 0; transform: translateY(20px); transition: 0.8s ease; }
 .reveal.active { opacity: 1; transform: translateY(0); }
 footer { padding: 40px 0; text-align: center; color: var(--text-dim); font-size: 0.8rem; border-top: 1px solid var(--border); }
