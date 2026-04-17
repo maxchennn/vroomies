@@ -14,12 +14,13 @@ fi
 ln -sf "$SELECTED_PATH" "$SYMLINK_PATH"
 
 # if you use fedora / : delete awww , write swww
+
 awww img "$SELECTED_PATH" \
     --transition-type grow \
-    --transition-pos 0.5,0.5 \
+    --transition-pos bottom-left \
     --transition-duration 1.2 \
     --transition-fps 144 \
-    --transition-bezier 0.22,1.2,0.36,1 \
+    --transition-bezier 0.16,1,0.3,1 \
     --resize crop
 
 matugen image "$SELECTED_PATH" --source-color-index 0
@@ -29,4 +30,4 @@ swaync &
 
 pkill -9 quickshell || true
 sleep 1
-QML_XHR_ALLOW_FILE_READ=1 quickshell --path "$HOME/.config/quickshell/shell.qml" &
+QML_XHR_ALLOW_FILE_READ=1 quickshell --path "$HOME/.config/quickshell/shell.qml" 
