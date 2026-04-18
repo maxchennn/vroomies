@@ -1,16 +1,46 @@
 #!/bin/bash
+# ##################################################################
+#                 vroomies  Arch Installation Script               #
+# ##################################################################
 
-# ##################################################################
-#                 Minimalist Arch Installation Script               #
-# ##################################################################
+set -e
 
 packages=(
-    'git' 'kitty' 'neovim' 'wget' 'unzip' 'fastfetch' 'htop' 'fish'
-    'pavucontrol' 'gufw' 'gnome-disk-utility'
-    'keepassxc' 'yt-dlp' 'localsend' 'discord' 'mpv'
-    'zen-browser-bin' 'firefox'
-    'ttf-jetbrains-mono-nerd' 'cantarell-fonts' 'noto-fonts' 
-    'noto-fonts-cjk' 'awesome-terminal-fonts' 'powerline-fonts'
+    # --- Core & Terminal ---
+    'git'
+    'kitty'
+    'neovim'
+    'wget'
+    'unzip'
+    'fastfetch'
+    'htop'
+    'fish'
+    # --- System Tools ---
+    'pavucontrol'
+    'gufw'
+    'gnome-disk-utility'
+    # --- Productivity & Media ---
+    'keepassxc'
+    'yt-dlp'
+    'localsend'
+    'discord'
+    'mpv'
+    'zen-browser-bin'
+    'firefox'
+    # --- Ricing (Pure-Flow Essentials) ---
+    'hyprland'
+    'swww'
+    'matugen'
+    'quickshell'
+    # --- Fonts ---
+    'ttf-jetbrains-mono-nerd'
+    'cantarell-fonts'
+    'noto-fonts'
+    'noto-fonts-cjk'
+    'noto-fonts-emoji'
+    'awesome-terminal-fonts'
+    'powerline-fonts'
+    'ttf-nerd-fonts-symbols'
 )
 
 # 1. Check for yay
@@ -25,12 +55,11 @@ yay -Syu --noconfirm
 
 # 3. Package Installation
 echo "📦 Installing minimalist package set..."
-yay -S --needed "${packages[@]}"
+yay -S --needed --noconfirm "${packages[@]}"
 
 # 4. Config Management
 echo "⚙️  Setting up configuration files..."
-[ ! -d "$HOME/.config" ] && mkdir -p "$HOME/.config"
-
+mkdir -p "$HOME/.config"
 if [ -d "$HOME/vroomies/config" ]; then
     echo "📂 Copying custom configs from vroomies..."
     cp -r "$HOME/vroomies/config/"* "$HOME/.config/"
@@ -38,12 +67,10 @@ else
     echo "⚠️  Warning: ~/vroomies/config directory not found."
 fi
 
-# 5. Font Management (Custom Fonts Folder)
+# 5. Font Management
 echo "🔡 Setting up custom fonts..."
 FONT_DIR="$HOME/.local/share/fonts"
-
-[ ! -d "$FONT_DIR" ] && mkdir -p "$FONT_DIR"
-
+mkdir -p "$FONT_DIR"
 if [ -d "$HOME/vroomies/fonts" ]; then
     echo "📂 Copying fonts to $FONT_DIR..."
     cp -r "$HOME/vroomies/fonts/"* "$FONT_DIR/"
@@ -56,7 +83,7 @@ fi
 # 6. Shell Setup
 echo "🐚 Changing default shell to Fish..."
 if command -v fish &> /dev/null; then
-    chsh -s $(which fish)
+    chsh -s "$(which fish)"
     echo "✅ Shell successfully changed to Fish."
 fi
 
