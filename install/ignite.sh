@@ -1,6 +1,6 @@
 #!/bin/bash
 # ##################################################################
-#            Lumina Fedora Installation Script (COPR)              #
+#            vroomies Fedora Installation Script (COPR)              #
 # ##################################################################
  
 set -e
