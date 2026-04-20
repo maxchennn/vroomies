@@ -14,6 +14,11 @@ Variants {
         color: "transparent"
         WlrLayershell.layer: WlrLayer.Top
         exclusionMode: ExclusionMode.Exclusive
+        
+        visible: {
+            const activeWs = Hyprland.focusedMonitor?.activeWorkspace;
+            return activeWs ? activeWs.id > 0 : true;
+        }
 
         Rectangle {
             id: barRect
@@ -81,6 +86,7 @@ Variants {
                         delegate: Item {
                             width: 20; height: 20
                             anchors.horizontalCenter: parent.horizontalCenter
+                            visible: modelData.id > 0 // Special workspace noktalarını burada gizle
                             property bool isActive: modelData.id === Hyprland.focusedMonitor?.activeWorkspace?.id
 
                             Rectangle {
