@@ -32,7 +32,6 @@ body {
   overflow-x: hidden;
 }
 
-/* Noise overlay */
 .noise {
   position: fixed;
   inset: 0;
@@ -43,7 +42,6 @@ body {
   background-size: 200px;
 }
 
-/* NAV */
 nav {
   position: fixed;
   top: 0;
@@ -100,7 +98,6 @@ nav {
   color: var(--accent) !important;
 }
 
-/* HERO */
 .hero {
   padding: 10rem 2.5rem 6rem;
   text-align: center;
@@ -217,7 +214,6 @@ nav {
   display: block;
 }
 
-/* FEATURES */
 .features {
   max-width: 1000px;
   margin: 0 auto;
@@ -266,7 +262,6 @@ nav {
   font-weight: 300;
 }
 
-/* SECTION LABEL */
 .section-label {
   font-family: var(--mono);
   font-size: 0.7rem;
@@ -277,7 +272,6 @@ nav {
   margin-bottom: 2.5rem;
 }
 
-/* FRAMES */
 .frames {
   max-width: 900px;
   margin: 0 auto;
@@ -310,7 +304,6 @@ nav {
   display: block;
 }
 
-/* INSTALL */
 .install {
   max-width: 900px;
   margin: 0 auto;
@@ -319,7 +312,7 @@ nav {
 
 .install-cards {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 1.5rem;
 }
 
@@ -354,6 +347,12 @@ nav {
   border: 1px solid rgba(110, 231, 192, 0.2);
 }
 
+.void {
+  background: rgba(180, 140, 255, 0.08);
+  color: #b48cff;
+  border: 1px solid rgba(180, 140, 255, 0.2);
+}
+
 .install-card pre {
   background: var(--bg3);
   border: 1px solid var(--border);
@@ -377,7 +376,6 @@ nav {
   line-height: 1.6;
 }
 
-/* COMMUNITY */
 .community {
   max-width: 900px;
   margin: 0 auto;
@@ -421,7 +419,6 @@ nav {
   font-weight: 300;
 }
 
-/* FOOTER */
 footer {
   border-top: 1px solid var(--border);
   padding: 2rem 2.5rem;
@@ -449,7 +446,6 @@ footer {
   letter-spacing: 0.5px;
 }
 
-/* RESPONSIVE */
 @media (max-width: 600px) {
   nav { padding: 1rem 1.25rem; }
   .hero { padding: 7rem 1.25rem 4rem; }
