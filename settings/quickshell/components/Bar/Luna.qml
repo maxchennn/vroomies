@@ -70,7 +70,6 @@ Variants {
                 Column {
                     Layout.alignment: Qt.AlignHCenter
                     spacing: 1
-
                     Text {
                         id: hourText
                         anchors.horizontalCenter: parent.horizontalCenter
@@ -110,7 +109,6 @@ Variants {
                 Column {
                     Layout.alignment: Qt.AlignHCenter
                     spacing: 10
-
                     Repeater {
                         model: Hyprland.workspaces
                         delegate: Item {
@@ -121,34 +119,23 @@ Variants {
 
                             Rectangle {
                                 anchors.centerIn: parent
-                                width: isActive ? 12 : 0
-                                height: isActive ? 12 : 0
-                                radius: 3
-                                color: "transparent"
-                                border.width: 2
-                                border.color: zyuTheme.accent
-                                rotation: 45
-                                opacity: isActive ? 1.0 : 0.0
+                                width: isActive ? 12 : 0; height: isActive ? 12 : 0; radius: 3
+                                color: "transparent"; border.width: 2; border.color: zyuTheme.accent
+                                rotation: 45; opacity: isActive ? 1.0 : 0.0
                                 Behavior on width   { NumberAnimation { duration: 280; easing.type: Easing.OutBack } }
                                 Behavior on height  { NumberAnimation { duration: 280; easing.type: Easing.OutBack } }
                                 Behavior on opacity { NumberAnimation { duration: 200 } }
                             }
-
                             Rectangle {
                                 anchors.centerIn: parent
-                                width: isActive ? 0 : 4
-                                height: isActive ? 0 : 4
-                                radius: 2
-                                color: zyuTheme.bar_fg
-                                opacity: isActive ? 0.0 : 0.28
+                                width: isActive ? 0 : 4; height: isActive ? 0 : 4; radius: 2
+                                color: zyuTheme.bar_fg; opacity: isActive ? 0.0 : 0.28
                                 Behavior on width   { NumberAnimation { duration: 250; easing.type: Easing.OutCubic } }
                                 Behavior on height  { NumberAnimation { duration: 250; easing.type: Easing.OutCubic } }
                                 Behavior on opacity { NumberAnimation { duration: 200 } }
                             }
-
                             MouseArea {
-                                anchors.fill: parent
-                                cursorShape: Qt.PointingHandCursor
+                                anchors.fill: parent; cursorShape: Qt.PointingHandCursor
                                 onClicked: Hyprland.dispatch("workspace " + modelData.id)
                             }
                         }
@@ -172,25 +159,20 @@ Variants {
                     clip: true
                     Behavior on Layout.preferredHeight { NumberAnimation { duration: 300; easing.type: Easing.OutCubic } }
                     Behavior on opacity { NumberAnimation { duration: 300 } }
-
                     Rectangle {
                         anchors.centerIn: parent
                         width: 36; height: 36; radius: 10
                         color: Qt.rgba(zyuTheme.accent.r, zyuTheme.accent.g, zyuTheme.accent.b, 0.12)
                         clip: true
-
                         Image {
                             anchors.fill: parent
                             source: barWindow.activePlayer ? (barWindow.activePlayer.trackArtUrl || "") : ""
                             fillMode: Image.PreserveAspectCrop
-                            asynchronous: true
-                            smooth: true
+                            asynchronous: true; smooth: true
                             sourceSize.width: 72; sourceSize.height: 72
                         }
-
                         MouseArea {
-                            anchors.fill: parent
-                            cursorShape: Qt.PointingHandCursor
+                            anchors.fill: parent; cursorShape: Qt.PointingHandCursor
                             onClicked: root.musicVisible = !root.musicVisible
                         }
                     }
@@ -202,48 +184,33 @@ Variants {
                     Layout.preferredWidth: barRect.width
                     Layout.preferredHeight: barWindow.hasMusic ? musicTextCol.implicitWidth + 24 : 0
                     opacity: barWindow.hasMusic ? 1.0 : 0.0
-
                     Behavior on Layout.preferredHeight { NumberAnimation { duration: 280; easing.type: Easing.OutCubic } }
                     Behavior on opacity { NumberAnimation { duration: 280 } }
-
                     MouseArea {
-                        anchors.fill: parent
-                        cursorShape: Qt.PointingHandCursor
+                        anchors.fill: parent; cursorShape: Qt.PointingHandCursor
                         onClicked: root.musicVisible = !root.musicVisible
                     }
-
                     Column {
                         id: musicTextCol
-                        anchors.centerIn: parent
-                        spacing: 4
-                        rotation: -90
-                        transformOrigin: Item.Center
-
+                        anchors.centerIn: parent; spacing: 4
+                        rotation: -90; transformOrigin: Item.Center
                         Text {
                             anchors.horizontalCenter: parent.horizontalCenter
                             text: barWindow.activePlayer ? (barWindow.activePlayer.trackTitle || "") : ""
                             color: root.musicVisible ? zyuTheme.accent : zyuTheme.bar_fg
-                            font.family: "JetBrainsMono Nerd Font"
-                            font.pixelSize: 11; font.bold: true
-                            opacity: 1.0
+                            font.family: "JetBrainsMono Nerd Font"; font.pixelSize: 11; font.bold: true
                             Behavior on color { ColorAnimation { duration: 200 } }
                         }
-
                         Rectangle {
                             anchors.horizontalCenter: parent.horizontalCenter
-                            width: root.musicVisible ? 30 : 10
-                            height: 1; radius: 1
+                            width: root.musicVisible ? 30 : 10; height: 1; radius: 1
                             color: zyuTheme.accent; opacity: 0.3
                             Behavior on width { NumberAnimation { duration: 250; easing.type: Easing.OutCubic } }
                         }
-
                         Text {
                             anchors.horizontalCenter: parent.horizontalCenter
                             text: barWindow.activePlayer ? (barWindow.activePlayer.trackArtist || "") : ""
-                            color: zyuTheme.bar_fg
-                            font.family: "JetBrainsMono Nerd Font"
-                            font.pixelSize: 10
-                            opacity: 0.38
+                            color: zyuTheme.bar_fg; font.family: "JetBrainsMono Nerd Font"; font.pixelSize: 10; opacity: 0.38
                             visible: (barWindow.activePlayer?.trackArtist || "") !== ""
                         }
                     }
@@ -251,44 +218,32 @@ Variants {
 
                 Item { Layout.fillHeight: true }
 
+                // Wifi
                 Item {
                     Layout.alignment: Qt.AlignHCenter
                     Layout.preferredWidth: 36; Layout.preferredHeight: 36
-
                     Rectangle {
                         anchors.centerIn: parent
-                        width:  wifiMa.containsMouse || root.wifiVisible ? 32 : 0
-                        height: width; radius: 8
-                        color: root.wifiVisible
-                            ? Qt.rgba(zyuTheme.accent.r, zyuTheme.accent.g, zyuTheme.accent.b, 0.18)
-                            : Qt.rgba(1,1,1,0.07)
+                        width: wifiMa.containsMouse || root.wifiVisible ? 32 : 0; height: width; radius: 8
+                        color: root.wifiVisible ? Qt.rgba(zyuTheme.accent.r, zyuTheme.accent.g, zyuTheme.accent.b, 0.18) : Qt.rgba(1,1,1,0.07)
                         Behavior on width  { NumberAnimation { duration: 180; easing.type: Easing.OutCubic } }
                         Behavior on height { NumberAnimation { duration: 180; easing.type: Easing.OutCubic } }
                         Behavior on color  { ColorAnimation  { duration: 150 } }
                     }
                     Text {
-                        anchors.centerIn: parent
-                        text: "󰤨"
+                        anchors.centerIn: parent; text: "󰤨"
                         font.family: "JetBrainsMono Nerd Font"; font.pixelSize: 16
-                        color: root.wifiVisible
-                            ? zyuTheme.accent
-                            : Qt.rgba(zyuTheme.bar_fg.r, zyuTheme.bar_fg.g, zyuTheme.bar_fg.b,
-                                      wifiMa.containsMouse ? 0.8 : 0.4)
+                        color: root.wifiVisible ? zyuTheme.accent : Qt.rgba(zyuTheme.bar_fg.r, zyuTheme.bar_fg.g, zyuTheme.bar_fg.b, wifiMa.containsMouse ? 0.8 : 0.4)
                         Behavior on color { ColorAnimation { duration: 150 } }
                     }
-                    MouseArea {
-                        id: wifiMa
-                        anchors.fill: parent
-                        hoverEnabled: true
-                        cursorShape: Qt.PointingHandCursor
-                        onClicked: root.wifiVisible = !root.wifiVisible
-                    }
+                    MouseArea { id: wifiMa; anchors.fill: parent; hoverEnabled: true; cursorShape: Qt.PointingHandCursor
+                        onClicked: root.wifiVisible = !root.wifiVisible }
                 }
 
+                // Dashboard
                 Item {
                     Layout.alignment: Qt.AlignHCenter
                     Layout.preferredWidth: 36; Layout.preferredHeight: 36
-
                     Rectangle {
                         anchors.centerIn: parent
                         width: dashMa.containsMouse ? 32 : 0; height: width; radius: 8
@@ -297,20 +252,39 @@ Variants {
                         Behavior on height { NumberAnimation { duration: 180; easing.type: Easing.OutCubic } }
                     }
                     Text {
-                        anchors.centerIn: parent
-                        text: "󰕮"
+                        anchors.centerIn: parent; text: "󰕮"
                         font.family: "JetBrainsMono Nerd Font"; font.pixelSize: 17
-                        color: Qt.rgba(zyuTheme.bar_fg.r, zyuTheme.bar_fg.g, zyuTheme.bar_fg.b,
-                                       dashMa.containsMouse ? 0.8 : 0.4)
+                        color: Qt.rgba(zyuTheme.bar_fg.r, zyuTheme.bar_fg.g, zyuTheme.bar_fg.b, dashMa.containsMouse ? 0.8 : 0.4)
                         Behavior on color { ColorAnimation { duration: 150 } }
                     }
-                    MouseArea {
-                        id: dashMa
-                        anchors.fill: parent
-                        hoverEnabled: true
-                        cursorShape: Qt.PointingHandCursor
-                        onClicked: if (typeof dashboardState !== 'undefined') dashboardState.show = !dashboardState.show
+                    MouseArea { id: dashMa; anchors.fill: parent; hoverEnabled: true; cursorShape: Qt.PointingHandCursor
+                        onClicked: if (typeof dashboardState !== 'undefined') dashboardState.show = !dashboardState.show }
+                }
+
+                // Bluetooth
+                Item {
+                    Layout.alignment: Qt.AlignHCenter
+                    Layout.preferredWidth: 36; Layout.preferredHeight: 36
+                    Layout.bottomMargin: 2
+                    Rectangle {
+                        anchors.centerIn: parent
+                        width: btMa.containsMouse || root.btVisible ? 32 : 0; height: width; radius: 8
+                        color: root.btVisible
+                            ? Qt.rgba(zyuTheme.accent.r, zyuTheme.accent.g, zyuTheme.accent.b, 0.18)
+                            : Qt.rgba(1,1,1,0.07)
+                        Behavior on width  { NumberAnimation { duration: 180; easing.type: Easing.OutCubic } }
+                        Behavior on height { NumberAnimation { duration: 180; easing.type: Easing.OutCubic } }
+                        Behavior on color  { ColorAnimation  { duration: 150 } }
                     }
+                    Text {
+                        anchors.centerIn: parent; text: "󰂯"
+                        font.family: "JetBrainsMono Nerd Font"; font.pixelSize: 16
+                        color: root.btVisible ? zyuTheme.accent
+                            : Qt.rgba(zyuTheme.bar_fg.r, zyuTheme.bar_fg.g, zyuTheme.bar_fg.b, btMa.containsMouse ? 0.8 : 0.4)
+                        Behavior on color { ColorAnimation { duration: 150 } }
+                    }
+                    MouseArea { id: btMa; anchors.fill: parent; hoverEnabled: true; cursorShape: Qt.PointingHandCursor
+                        onClicked: root.btVisible = !root.btVisible }
                 }
             }
         }
