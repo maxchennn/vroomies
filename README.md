@@ -38,9 +38,8 @@ AETHER, IGNITE and PHANTOM install the same core stack — only the package mana
 
 ## Screenshots
 
-![Hero](frames/hero.png)
-![Dashboard](frames/dashboard.png)
-![Wifi & Media Player](frames/wifi_and_media-player.png)
+![Hero](frames/Hero.png)
+
 
 ---
 
