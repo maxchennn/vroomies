@@ -46,7 +46,7 @@ PanelWindow {
 
     readonly property string fontFam:    "JetBrainsMono Nerd Font"
     readonly property string configPath: Quickshell.env("HOME") + "/.config/quickshell"
-    readonly property string ppDir:      configPath + "/assets/pp/"
+    readonly property string ppDir:      configPath + "/components/assets/pp/"
 
     property int batVal:    100
     property int volVal:    50
