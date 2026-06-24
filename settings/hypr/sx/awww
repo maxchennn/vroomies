@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+export WAYLAND_DISPLAY="${WAYLAND_DISPLAY:-wayland-0}"
+export XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"
+
+pkill -x awww-daemon || true
+
+# daemon başlat
+setsid awww-daemon >/dev/null 2>&1 &
+
+# ready wait
+for i in {1..40}; do
+    pgrep -x awww-daemon >/dev/null && break
+    sleep 0.1
+done

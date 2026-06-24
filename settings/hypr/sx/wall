@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+DIR="$HOME/Pictures/Alice/Fixed"
+SYMLINK="$HOME/.config/hypr/current_wallpaper"
+LOCK="/tmp/wall.lock"
+
+mkdir -p "$(dirname "$SYMLINK")"
+
+IMG=$(
+    find "$DIR" -type f \( \
+        -iname "*.png" -o \
+        -iname "*.jpg" -o \
+        -iname "*.jpeg" -o \
+        -iname "*.webp" \
+    \) | sort | while IFS= read -r img; do
+        printf '%s\0icon\x1f%s\n' "$img" "$img"
+    done | rofi \
+        -dmenu \
+        -i \
+        -show-icons \
+        -theme ~/.config/rofi/wall.rasi \
+)
+
+[[ -z "$IMG" ]] && exit 0
+[[ ! -f "$IMG" ]] && exit 1
+
+ln -sf "$IMG" "$SYMLINK"
+
+# awww daemon
+if ! pgrep -x awww-daemon >/dev/null; then
+    setsid awww-daemon >/dev/null 2>&1 &
+    sleep 1
+fi
+
+awww img "$IMG" \
+    --transition-type grow \
+    --transition-pos center \
+    --transition-duration 1.2 \
+    --transition-fps 144 \
+    --transition-bezier 0.16,1,0.3,1 \
+    --resize crop
+
+
