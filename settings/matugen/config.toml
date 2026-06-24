@@ -1,0 +1,28 @@
+[config]
+# ...
+
+[templates.hyprland]
+input_path = '~/.config/matugen/templates/colors.lua'
+output_path = '~/.config/hypr/colors.lua'
+post_hook = 'hyprctl reload'
+
+[templates.kitty]
+input_path = '~/.config/matugen/templates/kitty'
+output_path = '~/.config/kitty/themes/Maxchennn.conf'
+post_hook = "kitty +kitten themes --reload-in=all Matugen"
+
+[templates.m3colors]
+input_path = '~/.config/matugen/templates/colors.json'
+output_path = '~/.config/quickshell/Colors/colors.json'
+
+[templates.wlogout]
+input_path = '~/.config/matugen/templates/wlogout'
+output_path = '~/.config/wlogout/colors.css'
+
+[templates.files]
+input_path = '~/.config/matugen/templates/files.txt'
+output_path = '~/.config/matugen/files/files.txt'
+
+[templates.cava]
+input_path = '~/.config/matugen/templates/cava-colors.ini'
+output_path = '~/.config/cava/config'
