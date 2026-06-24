@@ -1,6 +1,6 @@
 # vroomies 🚀
 
-> *"See you space cowboy..."* — Cowboy Bebop
+> 間違いも無駄も、全部愛していく。
 
 hyprland + quickshell. no waybar. no bloat.
 
