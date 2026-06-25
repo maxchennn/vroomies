@@ -3,6 +3,7 @@ import Qt.labs.folderlistmodel
 import Quickshell
 import Quickshell.Io
 import Quickshell.Wayland
+import Qt5Compat.GraphicalEffects
 
 PanelWindow {
     id: main
@@ -13,7 +14,7 @@ PanelWindow {
     WlrLayershell.layer: WlrLayer.Overlay
     WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
 
-    readonly property string wallPath:   Quickshell.env("HOME") + "/Pictures/visions/"
+    readonly property string wallPath:   Quickshell.env("HOME") + "/Pictures/Alice/Fixed/"
     readonly property string wallScript: Quickshell.env("HOME") + "/.config/quickshell/components/visions/wall.sh"
 
     property color clrPrimary: "#d5bbfc"
@@ -37,7 +38,7 @@ PanelWindow {
         main.visible = false
     }
 
-    // Arka plan — tıklayınca kapat
+   
     Rectangle {
         anchors.fill: parent
         color: "transparent"
@@ -67,24 +68,24 @@ PanelWindow {
             }
         }
 
-        // ── Strip panel ──
+        
         Item {
             id: strip
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.top: parent.top
             anchors.topMargin: 40
             width: parent.width - 24
-            height: 140
+            height: 180
 
             property int focusIndex: 0
             property real pos: 0
             property int count: folderModel.count
 
-            // Slot boyutları — orta büyük, yanlara küçülür
+            
             readonly property var slotW:      [196, 126, 104, 88, 74]
             readonly property var slotH:      [110, 71, 59, 50, 42]
             readonly property var slotCX:     [0, 143, 244, 326, 393]
-            readonly property var slotBright: [1, 0.56, 0.42, 0.30, 0.22]
+            readonly property var slotBright: [1, 0.85, 0.70, 0.55, 0.42]
 
             function slotLerp(arr, ao) {
                 if (ao >= 4) return arr[4]
@@ -94,9 +95,15 @@ PanelWindow {
             }
 
             function offsetX(off) {
-                var ao = Math.abs(off)
-                var cx = ao <= 4 ? slotLerp(slotCX, ao) : slotCX[4] + (ao - 4) * 70
-                return off < 0 ? -cx : cx
+          var ao = Math.abs(off)
+          var cx
+
+          if (ao <= 4)
+            cx = slotLerp(slotCX, ao)
+          else
+             cx = slotCX[4] + (ao - 4) * 85
+
+             return off < 0 ? -cx : cx
             }
 
             function move(delta) {
@@ -104,7 +111,7 @@ PanelWindow {
                 focusIndex = Math.max(0, Math.min(count - 1, focusIndex + delta))
             }
 
-            // Smooth chase animasyonu
+            
             FrameAnimation {
                 running: strip.pos !== strip.focusIndex
                 onTriggered: {
@@ -121,7 +128,7 @@ PanelWindow {
                 nameFilters: ["*.png", "*.jpg", "*.jpeg", "*.webp"]
             }
 
-            // Mouse wheel
+           
             MouseArea {
                 anchors.fill: parent
                 acceptedButtons: Qt.NoButton
@@ -137,7 +144,7 @@ PanelWindow {
                 }
             }
 
-            // Arka plan
+           
             Rectangle {
                 anchors.fill: parent
                 color: Qt.rgba(0, 0, 0, 0.92)
@@ -146,7 +153,7 @@ PanelWindow {
                 border.width: 1
             }
 
-            // Tile'lar
+        
             Repeater {
                 model: folderModel
 
@@ -166,8 +173,8 @@ PanelWindow {
                     x:       strip.width / 2 + strip.offsetX(off) - width / 2
                     y:       (strip.height - height) / 2
                     z:       10 - ao
-                    visible: ao <= 5
-                    opacity: ao <= 4 ? 1 : Math.max(0, 5 - ao)
+		            visible: true
+                    opacity: 1 
 
                     Rectangle {
                         anchors.fill: parent
@@ -176,24 +183,33 @@ PanelWindow {
                         color: "#111"
                         border.width: tile.focused ? 2 : 0
                         border.color: main.clrPrimary
+ 
+                          OpacityMask {
+                           anchors.fill: parent
 
-                        Image {
-                            anchors.fill: parent
-                            source: tile.ao <= 5 ? "file://" + tile.filePath : ""
-                            fillMode: Image.PreserveAspectCrop
-                            asynchronous: true
-                            sourceSize: Qt.size(400, 250)
-                            smooth: true
-                        }
+                           source: Image {
+                           anchors.fill: parent
+                           source: "file://" + tile.filePath
+                           fillMode: Image.PreserveAspectCrop
+                           asynchronous: true
+                           sourceSize: Qt.size(400, 250)
+                           smooth: true
+                          } 
 
-                        // Karartma overlay
+                          maskSource: Rectangle {
+                          width: tile.width
+                          height: tile.height
+                          radius: 10
+                         }
+                        }                  
+                
                         Rectangle {
                             anchors.fill: parent
                             color: Qt.rgba(0, 0, 0, 1 - tile.bright)
                             radius: 10
                         }
 
-                        // Seçili glow
+                
                         Rectangle {
                             anchors.fill: parent
                             radius: 10
@@ -218,14 +234,14 @@ PanelWindow {
                 }
             }
 
-            // Hint text
+            
             Text {
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.bottom: parent.bottom
                 anchors.bottomMargin: 8
-                text: "tap to set · ← → to browse · esc to close"
+                text: "この扉を開けば、別の空が待っている。"
                 color: Qt.rgba(1, 1, 1, 0.3)
-                font.pixelSize: 10
+                font.pixelSize: 13
                 font.family: "JetBrains Mono"
                 font.letterSpacing: 0.5
             }
