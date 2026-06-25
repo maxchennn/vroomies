@@ -13,7 +13,7 @@ PanelWindow {
     WlrLayershell.layer: WlrLayer.Overlay
     WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
 
-    readonly property string wallPath:   Quickshell.env("HOME") + "/Pictures/Alice/Fixed/"
+    readonly property string wallPath:   Quickshell.env("HOME") + "/Pictures/visions/"
     readonly property string wallScript: Quickshell.env("HOME") + "/.config/quickshell/components/visions/wall.sh"
 
     property color clrPrimary: "#d5bbfc"
