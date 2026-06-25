@@ -15,6 +15,7 @@ ln -sf "$SELECTED_PATH" "$SYMLINK_PATH"
 
 awww img "$SELECTED_PATH" \
 #     -o $SCREEN \
+# you learn screen name : run this command in terminal : hyprctl monitors 
     --transition-type grow \
     --transition-pos bottom-left \
     --transition-duration 1.2 \
