@@ -207,7 +207,7 @@ Variants {
                             Behavior on color { ColorAnimation { duration: 150 } }
                         }
                         MouseArea { id: wallMa; anchors.fill: parent; hoverEnabled: true; cursorShape: Qt.PointingHandCursor
-                            onClicked: Quickshell.execDetached(["bash", Quickshell.env("HOME") + "/.config/quickshell/components/visions/wall.sh"]) }
+                            onClicked: Quickshell.execDetached(["bash", Quickshell.env("HOME") + "/.config/quickshell/components/visions/Alice.sh"]) } 
                     }
 
                     // Bluetooth
