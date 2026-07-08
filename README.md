@@ -86,7 +86,7 @@ vroomies/
 │   ├── configuration.nix # System config
 │   └── home.nix          # Home Manager config
 ├── fonts/                # Custom fonts
-├── frames/               # Screenshots (Hero.png, dashboard.png, wifi_and_media-player.png)
+├── frames/               # Screenshots (Hero.png)
 ├── settings/             # Extra config files
 ├── visions/              # Wallpapers
 ├── index.html
